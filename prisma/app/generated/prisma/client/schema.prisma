@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "app/generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Plan {
+  FREE
+  PRO
+  PREMIUM
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  name      String?
+  bio       String?
+  avatarUrl String?
+  plan      Plan     @default(FREE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(USER)
+
+  clerkId String @unique
+
+  // Företagsinformation
+  companyName    String?
+  companyOrgNr   String?
+  companyVat     String?
+  companyAddress String?
+
+  // Krediter och AI-pitchar
+  aiCredits  Int @default(5) // Antal AI-pitchar per månad, justera för varje plan
+  pitchUsage Int @default(0) // Använda AI-pitchar denna månad
+
+  links    Link[]
+  pdfs     PDF[]
+  invoices Invoice[]
+
+  // Relationsfält
+  aiPitches AI_Pitch[] // Relaterad lista av AI-pitchar som användaren skapat
+}
+
+model Link {
+  id        String   @id @default(cuid())
+  title     String
+  url       String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model PDF {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  summary   String?
+  type      String?
+  userId    String
+  createdAt DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id])
+  chatMessages ChatMessage[]
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  role      String // "user" or "ai"
+  content   String
+  pdfId     String
+  createdAt DateTime @default(now())
+
+  pdf PDF @relation(fields: [pdfId], references: [id])
+}
+
+model Invoice {
+  id        String   @id @default(cuid())
+  title     String
+  amount    Float
+  currency  String   @default("SEK")
+  recipient String
+  iban      String?
+  swish     String?
+  paid      Boolean  @default(false)
+  pdfUrl    String?
+  userId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model AI_Pitch {
+  id        String   @id @default(cuid())
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
