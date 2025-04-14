@@ -1,40 +1,34 @@
 import { notFound } from 'next/navigation'
+import { auth } from '@clerk/nextjs/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { prisma } from '@/utils/prisma'
 
-// MOCKDATA – byt till Prisma senare
-const mockUsers = [
-  {
-    username: 'emma',
-    name: 'Emma Karlsson',
-    bio:
-      '🎥 Lifestyle & beauty creator – samarbetar med svenska och internationella varumärken.',
-    avatar: '/emma.jpg',
-    links: [
-      { title: 'Blogg & samarbeten', url: 'https://emmablogg.se' },
-      { title: 'Instagram', url: 'https://instagram.com/emmak' },
-      { title: 'YouTube-kanal', url: 'https://youtube.com/@emmak' },
-    ],
-  },
-]
-
-export default function PublicProfilePage({
+export default async function PublicProfilePage({
   params,
 }: {
-  params: { username: string }
+  params: { clerkId: string }
 }) {
-  const user = mockUsers.find((u) => u.username === params.username)
+  const { userId } = await auth()
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: params.clerkId },
+    
+  })
+
   if (!user) return notFound()
 
+  const isOwner = userId === user.clerkId
+
   return (
-    <main className="min-h-screen w-full px-6 py-16 bg-background text-foreground max-w-md  mx-auto flex flex-col items-center">
+    <main className="min-h-screen w-full px-6 py-16 bg-background text-foreground max-w-md mx-auto flex flex-col items-center">
       {/* Profil */}
       <div className="flex flex-col items-center text-center mb-10">
         <Avatar className="w-24 h-24 mb-4 shadow-md ring-2 ring-primary">
-          <AvatarImage src={user.avatar} />
+          <AvatarImage src={user.avatarUrl || undefined} />
           <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
         </Avatar>
 
@@ -51,7 +45,7 @@ export default function PublicProfilePage({
             key={i}
             className="group relative overflow-hidden border border-primary/20 bg-muted/40 transition hover:shadow-md"
           >
-            <Link href={link.url}>
+            <Link href={link.url} target="_blank" rel="noopener noreferrer">
               <span className="absolute left-0 top-0 h-full w-1 bg-primary rounded-r" />
               <CardContent className="py-4 px-6 flex justify-between items-center">
                 <div className="text-left">
@@ -73,12 +67,20 @@ export default function PublicProfilePage({
 
       {/* CTA */}
       <div className="mt-16 text-center">
-        <p className="text-sm text-muted-foreground mb-3">
-          Intresserad av samarbete?
-        </p>
-        <Button variant="outline" className="text-sm px-6">
-          Kontakta mig
-        </Button>
+        {isOwner ? (
+          <Button variant="default" className="text-sm px-6">
+            Redigera min profil
+          </Button>
+        ) : (
+          <>
+            <p className="text-sm text-muted-foreground mb-3">
+              Intresserad av samarbete?
+            </p>
+            <Button variant="outline" className="text-sm px-6">
+              Kontakta mig
+            </Button>
+          </>
+        )}
       </div>
     </main>
   )

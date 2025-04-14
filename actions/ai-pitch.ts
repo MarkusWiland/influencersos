@@ -1,76 +1,58 @@
-'use server'
+// app/actions/generatePitch.ts
+"use server"
 
-import { prisma } from '@/utils/prisma' // Make sure this is set up
-import { OpenAI } from 'openai'
+import { z } from 'zod'
+import { openai } from '@ai-sdk/openai'
+import { generateText } from 'ai'
 
-// Initialize OpenAI instance
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+const schema = z.object({
+  name: z.string().min(1),
+  niche: z.string().min(1),
+  followers: z.coerce.number().min(1),
+  platforms: z.array(z.string()).nonempty(),
+  audience: z.string().min(1),
+  brand: z.string().min(1),
+  goal: z.string().min(1),
 })
 
-// Prompt templates (in Swedish)
-const promptTemplates: Record<string, string> = {
-  fashion:
-    'Skapa ett övertygande affärsförslag för en ny mode-startup som fokuserar på hållbara kläder. Förslaget bör lyfta fram varumärkets unika försäljningspunkter, målgrupp och marknadstrender.',
-  beauty:
-    'Skriv ett övertygande förslag för ett skönhetsmärke som specialiserar sig på cruelty-free sminkprodukter. Fokusera på produktens fördelar, etiska standarder och den växande efterfrågan på hållbar skönhet.',
-  tech:
-    'Skapa ett affärsförslag för en ny tech-startup som lanserar en AI-driven SaaS-plattform för småföretag. Förslaget ska förklara plattformens unika funktioner, fördelar och potentiella påverkan på branschen.',
-  health:
-    'Skapa ett pitch för ett hälsa- och wellnessmärke som erbjuder personliga måltidsplaner och träningsrutiner. Lyft fram vikten av skräddarsydda planer och hur de bidrar till bättre allmänt välbefinnande.',
-  general:
-    'Skapa ett pitch för en affärsidé inom ett område du brinner för. Pitchen ska visa upp produkten, marknaden och problemet den löser.',
-}
-
-// Server action to generate AI pitch and update credits
-export async function generatePitchAndUpdateCredits(
-  userId: string,
-  selectedTopic: string,
-  userPrompt: string,
-) {
-  // Fetch user data
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-  })
-
-  if (!user) {
-    throw new Error('Användaren hittades inte')
+export async function generatePitch(formData: FormData) {
+  const data = {
+    name: formData.get('name'),
+    niche: formData.get('niche'),
+    followers: formData.get('followers'),
+    platforms: formData.getAll('platforms'),
+    audience: formData.get('audience'),
+    brand: formData.get('brand'),
+    goal: formData.get('goal'),
   }
 
-  if (user.aiCredits <= 0) {
-    throw new Error('Du har inte tillräckligt med krediter')
-  }
+  const parsed = schema.safeParse(data)
+  if (!parsed.success) return { error: 'Ogiltiga fält' }
 
-  // Select the appropriate prompt based on the selected topic
-  const selectedPrompt =
-    promptTemplates[selectedTopic] || promptTemplates['general']
-  const finalPrompt = userPrompt || selectedPrompt
+  const { name, niche, followers, platforms, audience, brand, goal } = parsed.data
 
-  // Generate pitch using OpenAI
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o', // You can also use GPT-4 if you prefer
-    messages: [
-      {
-        role: 'system',
-        content:
-          'Du är en expert på att generera affärspitchar. Skapa pitchar baserade på de angivna ämnena. Var kreativ och professionell. Skriv på svenska.',
-      },
-      {
-        role: 'user',
-        content: finalPrompt, // This is the user-provided prompt (could be a custom or predefined one)
-      },
-    ],
-    temperature: 0.7,
-    max_tokens: 1000,
+  const systemPrompt = `
+    Du är en expert på influencer marketing och copywriting. Du hjälper influencers att skriva professionella, personliga och övertygande pitchar till varumärken.
+    Svara alltid på svenska. Skriv i ett trevligt men affärsmässigt tonläge.
+    Returnera både pitchtext och kort presentation till media kit.
+  `
+
+  const userPrompt = `
+    Jag heter ${name} och är en influencer inom ${niche}.
+    Jag har ${followers} följare på ${platforms.join(', ')}.
+    Min målgrupp är: ${audience}.
+    Jag vill kontakta ${brand} för ett ${goal}-samarbete.
+
+    Skriv:
+    1. En pitch jag kan skicka som DM eller mail till varumärket
+    2. En kort presentationstext jag kan använda i mitt media kit (max 3 meningar)
+  `
+
+  const result = await generateText({
+    model: openai('gpt-4'),
+    system: systemPrompt,
+    prompt: userPrompt,
   })
 
-  const generatedPitch = response.choices[0].message.content
-
-  // Deduct credits from the user
-  await prisma.user.update({
-    where: { id: userId },
-    data: { aiCredits: user.aiCredits - 1 },
-  })
-
-  return generatedPitch
+  return { result: result.text }
 }

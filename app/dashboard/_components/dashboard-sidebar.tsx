@@ -8,11 +8,13 @@ import {
   BarChart2,
   FileText,
   Brain,
+  Home,
 } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const links = [
+  { href: '/dashboard', label: 'Min Dashboard', icon: Home },
   { href: '/dashboard/profile', label: 'Min profil', icon: LayoutDashboard },
   { href: '/dashboard/links', label: 'Mina länkar', icon: Link2 },
   { href: '/dashboard/stats', label: 'Statistik', icon: BarChart2 },

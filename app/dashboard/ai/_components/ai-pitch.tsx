@@ -1,31 +1,47 @@
-// app/dashboard/ai-pitch/page.tsx (Client component)
 'use client'
 
 import React, { useState } from 'react'
 import { toast } from 'sonner'
-// Import the server action
+
 import {
   Select,
+  SelectTrigger,
+  SelectValue,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectLabel,
-  SelectTrigger,
-  SelectValue,
 } from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { generatePitchAndUpdateCredits } from '@/actions/ai-pitch'
+import { Textarea } from '@/components/ui/textarea'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { generatePitch } from '@/actions/ai-pitch'
 
 export default function AIPitchPage({ user }: { user: any }) {
-  const [selectedTopic, setSelectedTopic] = useState<string>('general')
-  const [userPrompt, setUserPrompt] = useState<string>('')
-  const [generatedPitch, setGeneratedPitch] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const handleGeneratePitch = async (e: React.FormEvent) => {
+  // Form states
+  const [name, setName] = useState(user.name || '')
+  const [niche, setNiche] = useState('')
+  const [followers, setFollowers] = useState(user.followers || 1000)
+  const [platforms, setPlatforms] = useState<string[]>([])
+  const [audience, setAudience] = useState('')
+  const [brand, setBrand] = useState('')
+  const [goal, setGoal] = useState('')
+
+  const togglePlatform = (platform: string) => {
+    setPlatforms((prev) =>
+      prev.includes(platform)
+        ? prev.filter((p) => p !== platform)
+        : [...prev, platform]
+    )
+  }
+
+  const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (user.credits <= 0) {
@@ -33,97 +49,122 @@ export default function AIPitchPage({ user }: { user: any }) {
       return
     }
 
+    if (!name || !niche || !followers || !platforms.length || !audience || !brand || !goal) {
+      toast.error('Vänligen fyll i alla fält.')
+      return
+    }
+
     setLoading(true)
     setError(null)
 
     try {
-      // Call the server action to generate pitch and update credits
-      const generated = await generatePitchAndUpdateCredits(
-        user.id,
-        selectedTopic,
-        userPrompt,
-      )
-      setGeneratedPitch(generated)
+      const formData = new FormData()
+      formData.append('name', name)
+      formData.append('niche', niche)
+      formData.append('followers', followers.toString())
+      platforms.forEach((p) => formData.append('platforms', p))
+      formData.append('audience', audience)
+      formData.append('brand', brand)
+      formData.append('goal', goal)
+
+      const res = await generatePitch(formData)
+
+      if (res?.result) {
+        setResult(res.result)
+      } else {
+        throw new Error('Ingen pitch genererades.')
+      }
     } catch (err) {
-      setError(
-        'Något gick fel vid genereringen av pitchen. Försök igen senare.',
-      )
+      setError('Något gick fel. Försök igen.')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="space-y-8 max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-semibold">Generera din AI-pitch</h1>
+    <div className="max-w-2xl mx-auto p-6 space-y-8">
+      <h1 className="text-2xl font-bold">Generera AI-pitch + media kit</h1>
 
-      {/* Visa krediter */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold">Dina krediter</h2>
-        <p className="text-sm text-muted-foreground">
-          Du har {user.credits} krediter kvar.
-        </p>
-      </div>
-
-      {/* Formulär för att skapa pitch */}
-      <form onSubmit={handleGeneratePitch} className="space-y-6">
+      <form onSubmit={handleGenerate} className="space-y-6">
         <div>
-          <Label htmlFor="topic" className="block text-lg font-semibold">
-            Välj ett ämne
-          </Label>
-          <Select value={selectedTopic} onValueChange={setSelectedTopic}>
-            <SelectTrigger className="w-full border rounded-md p-2">
-              <SelectValue placeholder="Välj ett ämne" />
+          <Label>Namn</Label>
+          <Input value={name} onChange={(e) => setName(e.target.value)} required />
+        </div>
+
+        <div>
+          <Label>Nisch</Label>
+          <Input value={niche} onChange={(e) => setNiche(e.target.value)} required />
+        </div>
+
+        <div>
+          <Label>Antal följare</Label>
+          <Input
+            type="number"
+            value={followers}
+            onChange={(e) => setFollowers(Number(e.target.value))}
+            required
+          />
+        </div>
+
+        <div>
+          <Label>Plattformar</Label>
+          <div className="flex gap-4">
+            {['Instagram', 'TikTok', 'YouTube'].map((platform) => (
+              <label key={platform} className="flex items-center gap-2">
+                <Checkbox
+                  checked={platforms.includes(platform)}
+                  onCheckedChange={() => togglePlatform(platform)}
+                />
+                {platform}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <Label>Målgrupp</Label>
+          <Textarea
+            value={audience}
+            onChange={(e) => setAudience(e.target.value)}
+            placeholder="Ex: Kvinnor 20–30 i Sverige som är intresserade av hudvård"
+            required
+          />
+        </div>
+
+        <div>
+          <Label>Varumärke du vill pitcha till</Label>
+          <Input value={brand} onChange={(e) => setBrand(e.target.value)} required />
+        </div>
+
+        <div>
+          <Label>Typ av samarbete</Label>
+          <Select value={goal} onValueChange={setGoal}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Välj typ av samarbete" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Ämnen</SelectLabel>
-                <SelectItem value="fashion">Mode</SelectItem>
-                <SelectItem value="beauty">Skönhet</SelectItem>
-                <SelectItem value="tech">Teknik</SelectItem>
-                <SelectItem value="health">Hälsa</SelectItem>
-                <SelectItem value="general">Allmänt</SelectItem>
+                <SelectLabel>Samarbetstyper</SelectLabel>
+                <SelectItem value="produkt">Produkt</SelectItem>
+                <SelectItem value="betalt">Betalt</SelectItem>
+                <SelectItem value="långsiktigt">Långsiktigt</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
 
-        <div>
-          <label htmlFor="userPrompt" className="block text-lg font-semibold">
-            Anpassad pitch (valfritt)
-          </label>
-          <Textarea
-            id="userPrompt"
-            className="border rounded-md p-2 w-full"
-            value={userPrompt}
-            onChange={(e) => setUserPrompt(e.target.value)}
-            placeholder="Skriv din egen pitch här..."
-            rows={3}
-          />
-        </div>
-
-        <div className="flex justify-center gap-6">
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading || user.credits <= 0}
-          >
-            {loading ? 'Skapar pitch...' : 'Skapa pitch'}
-          </Button>
-        </div>
+        <Button type="submit" disabled={loading || user.credits <= 0}>
+          {loading ? 'Genererar...' : 'Generera pitch'}
+        </Button>
       </form>
 
-      {/* Visar den genererade pitchen */}
-      {generatedPitch && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Din Pitch:</h2>
-          <div className="p-6 bg-white border rounded-lg shadow-md">
-            <p>{generatedPitch}</p>
-          </div>
+      {result && (
+        <div className="bg-muted p-4 rounded-lg whitespace-pre-wrap mt-6 border">
+          <h2 className="text-lg font-semibold mb-2">Resultat:</h2>
+          {result}
         </div>
       )}
 
-      {/* Visar felmeddelande om något går fel */}
       {error && <p className="text-red-500">{error}</p>}
     </div>
   )

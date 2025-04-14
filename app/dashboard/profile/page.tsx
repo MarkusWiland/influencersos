@@ -31,7 +31,9 @@ async function getUserData(id: string) {
 
 export default async function ProfilePage() {
   const userId = await requireUser()
+  console.log("userId", userId)
   const userData = await getUserData(userId.userId)
+  console.log("userData", userData)
 
   return (
     <div className="max-w-3xl mx-auto py-8 space-y-8">

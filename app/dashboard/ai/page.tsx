@@ -6,10 +6,10 @@ import AIPitchPage from './_components/ai-pitch'
 export default async function AIPage() {
   // Hämta användarsession från Clerk
   const session = await auth()
-
+  console.log("session", session)
   // Om användaren inte är inloggad, omdirigera till inloggningssidan
   if (!session?.userId) {
-    redirect('/login')
+    redirect('/')
   }
 
   // Hämta användardata från Prisma baserat på Clerk's userId
