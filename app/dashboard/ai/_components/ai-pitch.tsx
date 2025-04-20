@@ -1,83 +1,79 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
+import { z } from 'zod'
 
+import { generatePitch } from '@/actions/ai-pitch'
+import { Form } from '@/components/ui/form'
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Select,
+  SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
 } from '@/components/ui/select'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { generatePitch } from '@/actions/ai-pitch'
+import { Button } from '@/components/ui/button'
+import { PitchInput, pitchSchema } from '@/schemas/action/ai-pitch-schema'
+
+const PLATFORM_OPTIONS = ['Instagram', 'TikTok', 'YouTube']
 
 export default function AIPitchPage({ user }: { user: any }) {
-  const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [pending, setPending] = useState(false)
 
-  // Form states
-  const [name, setName] = useState(user.name || '')
-  const [niche, setNiche] = useState('')
-  const [followers, setFollowers] = useState(user.followers || 1000)
-  const [platforms, setPlatforms] = useState<string[]>([])
-  const [audience, setAudience] = useState('')
-  const [brand, setBrand] = useState('')
-  const [goal, setGoal] = useState('')
+  const form = useForm<PitchInput>({
+    resolver: zodResolver(pitchSchema),
+    defaultValues: {
+      name: user.name || '',
+      niche: '',
+      followers: user.followers || 0,
+      platforms: [],
+      audience: '',
+      brand: '',
+      goal: '',
+    },
+  })
 
-  const togglePlatform = (platform: string) => {
-    setPlatforms((prev) =>
-      prev.includes(platform)
-        ? prev.filter((p) => p !== platform)
-        : [...prev, platform]
-    )
-  }
-
-  const handleGenerate = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (user.credits <= 0) {
-      toast.error('Du har inga krediter kvar. Vänligen köp fler.')
+  const onSubmit = async (values: PitchInput) => {
+    if (user.aiCredits <= 0) {
+      toast.error('Du har inga krediter kvar.')
       return
     }
 
-    if (!name || !niche || !followers || !platforms.length || !audience || !brand || !goal) {
-      toast.error('Vänligen fyll i alla fält.')
-      return
-    }
+    setPending(true)
+    setResult(null)
 
-    setLoading(true)
-    setError(null)
+    const toastId = toast.loading('Genererar pitch...')
 
     try {
-      const formData = new FormData()
-      formData.append('name', name)
-      formData.append('niche', niche)
-      formData.append('followers', followers.toString())
-      platforms.forEach((p) => formData.append('platforms', p))
-      formData.append('audience', audience)
-      formData.append('brand', brand)
-      formData.append('goal', goal)
+      const res = await generatePitch(values)
+      toast.dismiss(toastId)
 
-      const res = await generatePitch(formData)
-
-      if (res?.result) {
-        setResult(res.result)
+      if (res?.error) {
+        toast.error(res.error)
       } else {
-        throw new Error('Ingen pitch genererades.')
+        setResult(res.result)
+        toast.success('Pitch genererad!')
       }
-    } catch (err) {
-      setError('Något gick fel. Försök igen.')
+    } catch (error) {
+      console.error(error)
+      toast.dismiss(toastId)
+      toast.error('Något gick fel.')
     } finally {
-      setLoading(false)
+      setPending(false)
     }
   }
 
@@ -85,78 +81,144 @@ export default function AIPitchPage({ user }: { user: any }) {
     <div className="max-w-2xl mx-auto p-6 space-y-8">
       <h1 className="text-2xl font-bold">Generera AI-pitch + media kit</h1>
 
-      <form onSubmit={handleGenerate} className="space-y-6">
-        <div>
-          <Label>Namn</Label>
-          <Input value={name} onChange={(e) => setName(e.target.value)} required />
-        </div>
+      <p className="text-sm text-muted-foreground">
+        Du har <span className="font-semibold">{user.aiCredits}</span> krediter
+        kvar.
+      </p>
 
-        <div>
-          <Label>Nisch</Label>
-          <Input value={niche} onChange={(e) => setNiche(e.target.value)} required />
-        </div>
-
-        <div>
-          <Label>Antal följare</Label>
-          <Input
-            type="number"
-            value={followers}
-            onChange={(e) => setFollowers(Number(e.target.value))}
-            required
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 bg-background p-6 rounded-xl border"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Namn</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
 
-        <div>
-          <Label>Plattformar</Label>
-          <div className="flex gap-4">
-            {['Instagram', 'TikTok', 'YouTube'].map((platform) => (
-              <label key={platform} className="flex items-center gap-2">
-                <Checkbox
-                  checked={platforms.includes(platform)}
-                  onCheckedChange={() => togglePlatform(platform)}
-                />
-                {platform}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <Label>Målgrupp</Label>
-          <Textarea
-            value={audience}
-            onChange={(e) => setAudience(e.target.value)}
-            placeholder="Ex: Kvinnor 20–30 i Sverige som är intresserade av hudvård"
-            required
+          <FormField
+            control={form.control}
+            name="niche"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nisch</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
 
-        <div>
-          <Label>Varumärke du vill pitcha till</Label>
-          <Input value={brand} onChange={(e) => setBrand(e.target.value)} required />
-        </div>
+          <FormField
+            control={form.control}
+            name="followers"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Antal följare</FormLabel>
+                <FormControl>
+                  <Input type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div>
-          <Label>Typ av samarbete</Label>
-          <Select value={goal} onValueChange={setGoal}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Välj typ av samarbete" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Samarbetstyper</SelectLabel>
-                <SelectItem value="produkt">Produkt</SelectItem>
-                <SelectItem value="betalt">Betalt</SelectItem>
-                <SelectItem value="långsiktigt">Långsiktigt</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+          <FormField
+            control={form.control}
+            name="platforms"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Plattformar</FormLabel>
+                <div className="flex flex-wrap gap-4">
+                  {PLATFORM_OPTIONS.map((platform) => (
+                    <label key={platform} className="flex items-center gap-2">
+                      <Checkbox
+                        checked={field.value.includes(platform)}
+                        onCheckedChange={(checked) => {
+                          const newValue = checked
+                            ? [...field.value, platform]
+                            : field.value.filter((p) => p !== platform)
+                          field.onChange(newValue)
+                        }}
+                      />
+                      {platform}
+                    </label>
+                  ))}
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button type="submit" disabled={loading || user.credits <= 0}>
-          {loading ? 'Genererar...' : 'Generera pitch'}
-        </Button>
-      </form>
+          <FormField
+            control={form.control}
+            name="audience"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Målgrupp</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Ex: Kvinnor 20–30 i Sverige..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="brand"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Varumärke</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="goal"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Typ av samarbete</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Välj samarbete" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="produkt">Produkt</SelectItem>
+                    <SelectItem value="betalt">Betalt</SelectItem>
+                    <SelectItem value="långsiktigt">Långsiktigt</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" disabled={pending}>
+            {pending ? 'Genererar...' : 'Generera pitch'}
+          </Button>
+        </form>
+      </Form>
 
       {result && (
         <div className="bg-muted p-4 rounded-lg whitespace-pre-wrap mt-6 border">
@@ -164,8 +226,6 @@ export default function AIPitchPage({ user }: { user: any }) {
           {result}
         </div>
       )}
-
-      {error && <p className="text-red-500">{error}</p>}
     </div>
   )
 }

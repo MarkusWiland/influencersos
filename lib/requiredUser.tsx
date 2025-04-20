@@ -1,12 +1,21 @@
+// lib/requiredUser.ts
+import { prisma } from '@/utils/prisma'
 import { auth } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation'
 
 export async function requireUser() {
-  const session = await auth()
+  const { userId } = await auth()
 
-  if (!session?.userId) {
-    redirect('/login')
+  if (!userId) {
+    throw new Error('Ej inloggad.')
   }
 
-  return session
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId },
+  })
+
+  if (!user) {
+    throw new Error('Användaren finns inte i databasen.')
+  }
+
+  return user // ✅ Returnera hela användaren
 }

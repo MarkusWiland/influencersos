@@ -137,6 +137,13 @@ exports.Prisma.UserScalarFieldEnum = {
   pitchUsage: 'pitchUsage'
 };
 
+exports.Prisma.LinkClickScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  link: 'link',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.LinkScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -178,9 +185,10 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.AI_PitchScalarFieldEnum = {
+exports.Prisma.AIPitchScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  title: 'title',
   content: 'content',
   createdAt: 'createdAt'
 };
@@ -212,11 +220,12 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  LinkClick: 'LinkClick',
   Link: 'Link',
   PDF: 'PDF',
   ChatMessage: 'ChatMessage',
   Invoice: 'Invoice',
-  AI_Pitch: 'AI_Pitch'
+  AIPitch: 'AIPitch'
 };
 
 /**

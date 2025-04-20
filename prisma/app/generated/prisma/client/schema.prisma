@@ -48,7 +48,17 @@ model User {
   invoices Invoice[]
 
   // Relationsfält
-  aiPitches AI_Pitch[] // Relaterad lista av AI-pitchar som användaren skapat
+  aiPitches AIPitch[] // Relaterad lista av AI-pitchar som användaren skapat
+  LinkClick LinkClick[]
+}
+
+model LinkClick {
+  id        String   @id @default(cuid())
+  userId    String
+  link      String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Link {
@@ -101,9 +111,10 @@ model Invoice {
   user User @relation(fields: [userId], references: [id])
 }
 
-model AI_Pitch {
+model AIPitch {
   id        String   @id @default(cuid())
   userId    String
+  title     String
   content   String
   createdAt DateTime @default(now())
 

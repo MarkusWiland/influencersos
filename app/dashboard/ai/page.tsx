@@ -1,41 +1,47 @@
-import { prisma } from '@/utils/prisma'
-import { redirect } from 'next/navigation'
-import { auth } from '@clerk/nextjs/server'
-import AIPitchPage from './_components/ai-pitch'
+import Link from 'next/link'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-export default async function AIPage() {
-  // Hämta användarsession från Clerk
-  const session = await auth()
-  console.log("session", session)
-  // Om användaren inte är inloggad, omdirigera till inloggningssidan
-  if (!session?.userId) {
-    redirect('/')
-  }
+export default function AIHubPage() {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">AI-verktyg</h2>
+      <p className="text-muted-foreground">Välj vad du vill skapa med AI:</p>
 
-  // Hämta användardata från Prisma baserat på Clerk's userId
-  const user = await prisma.user.findUnique({
-    where: { clerkId: session.userId },
-    select: {
-      id: true,
-      username: true,
-      email: true,
-      plan: true,
-      aiCredits: true, // Krediter som kan användas för AI-pitchar
-      name: true,
-      bio: true,
-      avatarUrl: true,
-      companyName: true,
-      companyOrgNr: true,
-      companyVat: true,
-      companyAddress: true,
-    },
-  })
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Link href="/dashboard/ai/pitch">
+          <Card className="hover:shadow-md transition">
+            <CardHeader>
+              <CardTitle>AI-pitch</CardTitle>
+            </CardHeader>
+            <CardContent>
+              Skapa en professionell pitch till varumärken baserat på din
+              målgrupp.
+            </CardContent>
+          </Card>
+        </Link>
 
-  // Om användaren inte finns, omdirigera till startsidan
-  if (!user) {
-    redirect('/')
-  }
+        <Link href="/dashboard/ai/content">
+          <Card className="hover:shadow-md transition">
+            <CardHeader>
+              <CardTitle>AI-content</CardTitle>
+            </CardHeader>
+            <CardContent>
+              Generera captions, hashtags och inläggsidéer automatiskt.
+            </CardContent>
+          </Card>
+        </Link>
 
-  // Skicka användardata till klientkomponenten
-  return <AIPitchPage user={user} />
+        <Link href="/dashboard/ai/analytics">
+          <Card className="hover:shadow-md transition">
+            <CardHeader>
+              <CardTitle>AI-analys</CardTitle>
+            </CardHeader>
+            <CardContent>
+              Få AI-drivna insikter om vad som fungerar i ditt innehåll.
+            </CardContent>
+          </Card>
+        </Link>
+      </div>
+    </div>
+  )
 }

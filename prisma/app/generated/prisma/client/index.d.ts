@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model LinkClick
+ * 
+ */
+export type LinkClick = $Result.DefaultSelection<Prisma.$LinkClickPayload>
+/**
  * Model Link
  * 
  */
@@ -39,10 +44,10 @@ export type ChatMessage = $Result.DefaultSelection<Prisma.$ChatMessagePayload>
  */
 export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
 /**
- * Model AI_Pitch
+ * Model AIPitch
  * 
  */
-export type AI_Pitch = $Result.DefaultSelection<Prisma.$AI_PitchPayload>
+export type AIPitch = $Result.DefaultSelection<Prisma.$AIPitchPayload>
 
 /**
  * Enums
@@ -210,6 +215,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.linkClick`: Exposes CRUD operations for the **LinkClick** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LinkClicks
+    * const linkClicks = await prisma.linkClick.findMany()
+    * ```
+    */
+  get linkClick(): Prisma.LinkClickDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.link`: Exposes CRUD operations for the **Link** model.
     * Example usage:
     * ```ts
@@ -250,14 +265,14 @@ export class PrismaClient<
   get invoice(): Prisma.InvoiceDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.aI_Pitch`: Exposes CRUD operations for the **AI_Pitch** model.
+   * `prisma.aIPitch`: Exposes CRUD operations for the **AIPitch** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more AI_Pitches
-    * const aI_Pitches = await prisma.aI_Pitch.findMany()
+    * // Fetch zero or more AIPitches
+    * const aIPitches = await prisma.aIPitch.findMany()
     * ```
     */
-  get aI_Pitch(): Prisma.AI_PitchDelegate<ExtArgs, ClientOptions>;
+  get aIPitch(): Prisma.AIPitchDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -699,11 +714,12 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    LinkClick: 'LinkClick',
     Link: 'Link',
     PDF: 'PDF',
     ChatMessage: 'ChatMessage',
     Invoice: 'Invoice',
-    AI_Pitch: 'AI_Pitch'
+    AIPitch: 'AIPitch'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -722,7 +738,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "link" | "pDF" | "chatMessage" | "invoice" | "aI_Pitch"
+      modelProps: "user" | "linkClick" | "link" | "pDF" | "chatMessage" | "invoice" | "aIPitch"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -797,6 +813,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      LinkClick: {
+        payload: Prisma.$LinkClickPayload<ExtArgs>
+        fields: Prisma.LinkClickFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LinkClickFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LinkClickFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>
+          }
+          findFirst: {
+            args: Prisma.LinkClickFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LinkClickFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>
+          }
+          findMany: {
+            args: Prisma.LinkClickFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>[]
+          }
+          create: {
+            args: Prisma.LinkClickCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>
+          }
+          createMany: {
+            args: Prisma.LinkClickCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LinkClickCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>[]
+          }
+          delete: {
+            args: Prisma.LinkClickDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>
+          }
+          update: {
+            args: Prisma.LinkClickUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>
+          }
+          deleteMany: {
+            args: Prisma.LinkClickDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LinkClickUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LinkClickUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>[]
+          }
+          upsert: {
+            args: Prisma.LinkClickUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkClickPayload>
+          }
+          aggregate: {
+            args: Prisma.LinkClickAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLinkClick>
+          }
+          groupBy: {
+            args: Prisma.LinkClickGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LinkClickGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LinkClickCountArgs<ExtArgs>
+            result: $Utils.Optional<LinkClickCountAggregateOutputType> | number
           }
         }
       }
@@ -1096,77 +1186,77 @@ export namespace Prisma {
           }
         }
       }
-      AI_Pitch: {
-        payload: Prisma.$AI_PitchPayload<ExtArgs>
-        fields: Prisma.AI_PitchFieldRefs
+      AIPitch: {
+        payload: Prisma.$AIPitchPayload<ExtArgs>
+        fields: Prisma.AIPitchFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.AI_PitchFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload> | null
+            args: Prisma.AIPitchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.AI_PitchFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>
+            args: Prisma.AIPitchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>
           }
           findFirst: {
-            args: Prisma.AI_PitchFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload> | null
+            args: Prisma.AIPitchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.AI_PitchFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>
+            args: Prisma.AIPitchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>
           }
           findMany: {
-            args: Prisma.AI_PitchFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>[]
+            args: Prisma.AIPitchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>[]
           }
           create: {
-            args: Prisma.AI_PitchCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>
+            args: Prisma.AIPitchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>
           }
           createMany: {
-            args: Prisma.AI_PitchCreateManyArgs<ExtArgs>
+            args: Prisma.AIPitchCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.AI_PitchCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>[]
+            args: Prisma.AIPitchCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>[]
           }
           delete: {
-            args: Prisma.AI_PitchDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>
+            args: Prisma.AIPitchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>
           }
           update: {
-            args: Prisma.AI_PitchUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>
+            args: Prisma.AIPitchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>
           }
           deleteMany: {
-            args: Prisma.AI_PitchDeleteManyArgs<ExtArgs>
+            args: Prisma.AIPitchDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.AI_PitchUpdateManyArgs<ExtArgs>
+            args: Prisma.AIPitchUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.AI_PitchUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>[]
+            args: Prisma.AIPitchUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>[]
           }
           upsert: {
-            args: Prisma.AI_PitchUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AI_PitchPayload>
+            args: Prisma.AIPitchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIPitchPayload>
           }
           aggregate: {
-            args: Prisma.AI_PitchAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAI_Pitch>
+            args: Prisma.AIPitchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIPitch>
           }
           groupBy: {
-            args: Prisma.AI_PitchGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AI_PitchGroupByOutputType>[]
+            args: Prisma.AIPitchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIPitchGroupByOutputType>[]
           }
           count: {
-            args: Prisma.AI_PitchCountArgs<ExtArgs>
-            result: $Utils.Optional<AI_PitchCountAggregateOutputType> | number
+            args: Prisma.AIPitchCountArgs<ExtArgs>
+            result: $Utils.Optional<AIPitchCountAggregateOutputType> | number
           }
         }
       }
@@ -1255,11 +1345,12 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    linkClick?: LinkClickOmit
     link?: LinkOmit
     pDF?: PDFOmit
     chatMessage?: ChatMessageOmit
     invoice?: InvoiceOmit
-    aI_Pitch?: AI_PitchOmit
+    aIPitch?: AIPitchOmit
   }
 
   /* Types for Logging */
@@ -1358,6 +1449,7 @@ export namespace Prisma {
     pdfs: number
     invoices: number
     aiPitches: number
+    LinkClick: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1365,6 +1457,7 @@ export namespace Prisma {
     pdfs?: boolean | UserCountOutputTypeCountPdfsArgs
     invoices?: boolean | UserCountOutputTypeCountInvoicesArgs
     aiPitches?: boolean | UserCountOutputTypeCountAiPitchesArgs
+    LinkClick?: boolean | UserCountOutputTypeCountLinkClickArgs
   }
 
   // Custom InputTypes
@@ -1403,7 +1496,14 @@ export namespace Prisma {
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountAiPitchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLinkClickArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinkClickWhereInput
   }
 
 
@@ -1744,6 +1844,7 @@ export namespace Prisma {
     pdfs?: boolean | User$pdfsArgs<ExtArgs>
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     aiPitches?: boolean | User$aiPitchesArgs<ExtArgs>
+    LinkClick?: boolean | User$LinkClickArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1813,6 +1914,7 @@ export namespace Prisma {
     pdfs?: boolean | User$pdfsArgs<ExtArgs>
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     aiPitches?: boolean | User$aiPitchesArgs<ExtArgs>
+    LinkClick?: boolean | User$LinkClickArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1824,7 +1926,8 @@ export namespace Prisma {
       links: Prisma.$LinkPayload<ExtArgs>[]
       pdfs: Prisma.$PDFPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
-      aiPitches: Prisma.$AI_PitchPayload<ExtArgs>[]
+      aiPitches: Prisma.$AIPitchPayload<ExtArgs>[]
+      LinkClick: Prisma.$LinkClickPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2241,7 +2344,8 @@ export namespace Prisma {
     links<T extends User$linksArgs<ExtArgs> = {}>(args?: Subset<T, User$linksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pdfs<T extends User$pdfsArgs<ExtArgs> = {}>(args?: Subset<T, User$pdfsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PDFPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends User$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, User$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    aiPitches<T extends User$aiPitchesArgs<ExtArgs> = {}>(args?: Subset<T, User$aiPitchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiPitches<T extends User$aiPitchesArgs<ExtArgs> = {}>(args?: Subset<T, User$aiPitchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    LinkClick<T extends User$LinkClickArgs<ExtArgs> = {}>(args?: Subset<T, User$LinkClickArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2752,23 +2856,47 @@ export namespace Prisma {
    */
   export type User$aiPitchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
-    where?: AI_PitchWhereInput
-    orderBy?: AI_PitchOrderByWithRelationInput | AI_PitchOrderByWithRelationInput[]
-    cursor?: AI_PitchWhereUniqueInput
+    include?: AIPitchInclude<ExtArgs> | null
+    where?: AIPitchWhereInput
+    orderBy?: AIPitchOrderByWithRelationInput | AIPitchOrderByWithRelationInput[]
+    cursor?: AIPitchWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: AI_PitchScalarFieldEnum | AI_PitchScalarFieldEnum[]
+    distinct?: AIPitchScalarFieldEnum | AIPitchScalarFieldEnum[]
+  }
+
+  /**
+   * User.LinkClick
+   */
+  export type User$LinkClickArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    where?: LinkClickWhereInput
+    orderBy?: LinkClickOrderByWithRelationInput | LinkClickOrderByWithRelationInput[]
+    cursor?: LinkClickWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinkClickScalarFieldEnum | LinkClickScalarFieldEnum[]
   }
 
   /**
@@ -2787,6 +2915,1051 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LinkClick
+   */
+
+  export type AggregateLinkClick = {
+    _count: LinkClickCountAggregateOutputType | null
+    _min: LinkClickMinAggregateOutputType | null
+    _max: LinkClickMaxAggregateOutputType | null
+  }
+
+  export type LinkClickMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    link: string | null
+    createdAt: Date | null
+  }
+
+  export type LinkClickMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    link: string | null
+    createdAt: Date | null
+  }
+
+  export type LinkClickCountAggregateOutputType = {
+    id: number
+    userId: number
+    link: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LinkClickMinAggregateInputType = {
+    id?: true
+    userId?: true
+    link?: true
+    createdAt?: true
+  }
+
+  export type LinkClickMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    link?: true
+    createdAt?: true
+  }
+
+  export type LinkClickCountAggregateInputType = {
+    id?: true
+    userId?: true
+    link?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LinkClickAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LinkClick to aggregate.
+     */
+    where?: LinkClickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinkClicks to fetch.
+     */
+    orderBy?: LinkClickOrderByWithRelationInput | LinkClickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LinkClickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinkClicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinkClicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LinkClicks
+    **/
+    _count?: true | LinkClickCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LinkClickMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LinkClickMaxAggregateInputType
+  }
+
+  export type GetLinkClickAggregateType<T extends LinkClickAggregateArgs> = {
+        [P in keyof T & keyof AggregateLinkClick]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLinkClick[P]>
+      : GetScalarType<T[P], AggregateLinkClick[P]>
+  }
+
+
+
+
+  export type LinkClickGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinkClickWhereInput
+    orderBy?: LinkClickOrderByWithAggregationInput | LinkClickOrderByWithAggregationInput[]
+    by: LinkClickScalarFieldEnum[] | LinkClickScalarFieldEnum
+    having?: LinkClickScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LinkClickCountAggregateInputType | true
+    _min?: LinkClickMinAggregateInputType
+    _max?: LinkClickMaxAggregateInputType
+  }
+
+  export type LinkClickGroupByOutputType = {
+    id: string
+    userId: string
+    link: string
+    createdAt: Date
+    _count: LinkClickCountAggregateOutputType | null
+    _min: LinkClickMinAggregateOutputType | null
+    _max: LinkClickMaxAggregateOutputType | null
+  }
+
+  type GetLinkClickGroupByPayload<T extends LinkClickGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LinkClickGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LinkClickGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LinkClickGroupByOutputType[P]>
+            : GetScalarType<T[P], LinkClickGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LinkClickSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    link?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linkClick"]>
+
+  export type LinkClickSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    link?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linkClick"]>
+
+  export type LinkClickSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    link?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linkClick"]>
+
+  export type LinkClickSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    link?: boolean
+    createdAt?: boolean
+  }
+
+  export type LinkClickOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "link" | "createdAt", ExtArgs["result"]["linkClick"]>
+  export type LinkClickInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LinkClickIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LinkClickIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LinkClickPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LinkClick"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      link: string
+      createdAt: Date
+    }, ExtArgs["result"]["linkClick"]>
+    composites: {}
+  }
+
+  type LinkClickGetPayload<S extends boolean | null | undefined | LinkClickDefaultArgs> = $Result.GetResult<Prisma.$LinkClickPayload, S>
+
+  type LinkClickCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LinkClickFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LinkClickCountAggregateInputType | true
+    }
+
+  export interface LinkClickDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LinkClick'], meta: { name: 'LinkClick' } }
+    /**
+     * Find zero or one LinkClick that matches the filter.
+     * @param {LinkClickFindUniqueArgs} args - Arguments to find a LinkClick
+     * @example
+     * // Get one LinkClick
+     * const linkClick = await prisma.linkClick.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LinkClickFindUniqueArgs>(args: SelectSubset<T, LinkClickFindUniqueArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LinkClick that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LinkClickFindUniqueOrThrowArgs} args - Arguments to find a LinkClick
+     * @example
+     * // Get one LinkClick
+     * const linkClick = await prisma.linkClick.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LinkClickFindUniqueOrThrowArgs>(args: SelectSubset<T, LinkClickFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LinkClick that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickFindFirstArgs} args - Arguments to find a LinkClick
+     * @example
+     * // Get one LinkClick
+     * const linkClick = await prisma.linkClick.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LinkClickFindFirstArgs>(args?: SelectSubset<T, LinkClickFindFirstArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LinkClick that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickFindFirstOrThrowArgs} args - Arguments to find a LinkClick
+     * @example
+     * // Get one LinkClick
+     * const linkClick = await prisma.linkClick.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LinkClickFindFirstOrThrowArgs>(args?: SelectSubset<T, LinkClickFindFirstOrThrowArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LinkClicks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LinkClicks
+     * const linkClicks = await prisma.linkClick.findMany()
+     * 
+     * // Get first 10 LinkClicks
+     * const linkClicks = await prisma.linkClick.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const linkClickWithIdOnly = await prisma.linkClick.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LinkClickFindManyArgs>(args?: SelectSubset<T, LinkClickFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LinkClick.
+     * @param {LinkClickCreateArgs} args - Arguments to create a LinkClick.
+     * @example
+     * // Create one LinkClick
+     * const LinkClick = await prisma.linkClick.create({
+     *   data: {
+     *     // ... data to create a LinkClick
+     *   }
+     * })
+     * 
+     */
+    create<T extends LinkClickCreateArgs>(args: SelectSubset<T, LinkClickCreateArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LinkClicks.
+     * @param {LinkClickCreateManyArgs} args - Arguments to create many LinkClicks.
+     * @example
+     * // Create many LinkClicks
+     * const linkClick = await prisma.linkClick.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LinkClickCreateManyArgs>(args?: SelectSubset<T, LinkClickCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LinkClicks and returns the data saved in the database.
+     * @param {LinkClickCreateManyAndReturnArgs} args - Arguments to create many LinkClicks.
+     * @example
+     * // Create many LinkClicks
+     * const linkClick = await prisma.linkClick.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LinkClicks and only return the `id`
+     * const linkClickWithIdOnly = await prisma.linkClick.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LinkClickCreateManyAndReturnArgs>(args?: SelectSubset<T, LinkClickCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LinkClick.
+     * @param {LinkClickDeleteArgs} args - Arguments to delete one LinkClick.
+     * @example
+     * // Delete one LinkClick
+     * const LinkClick = await prisma.linkClick.delete({
+     *   where: {
+     *     // ... filter to delete one LinkClick
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LinkClickDeleteArgs>(args: SelectSubset<T, LinkClickDeleteArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LinkClick.
+     * @param {LinkClickUpdateArgs} args - Arguments to update one LinkClick.
+     * @example
+     * // Update one LinkClick
+     * const linkClick = await prisma.linkClick.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LinkClickUpdateArgs>(args: SelectSubset<T, LinkClickUpdateArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LinkClicks.
+     * @param {LinkClickDeleteManyArgs} args - Arguments to filter LinkClicks to delete.
+     * @example
+     * // Delete a few LinkClicks
+     * const { count } = await prisma.linkClick.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LinkClickDeleteManyArgs>(args?: SelectSubset<T, LinkClickDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LinkClicks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LinkClicks
+     * const linkClick = await prisma.linkClick.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LinkClickUpdateManyArgs>(args: SelectSubset<T, LinkClickUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LinkClicks and returns the data updated in the database.
+     * @param {LinkClickUpdateManyAndReturnArgs} args - Arguments to update many LinkClicks.
+     * @example
+     * // Update many LinkClicks
+     * const linkClick = await prisma.linkClick.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LinkClicks and only return the `id`
+     * const linkClickWithIdOnly = await prisma.linkClick.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LinkClickUpdateManyAndReturnArgs>(args: SelectSubset<T, LinkClickUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LinkClick.
+     * @param {LinkClickUpsertArgs} args - Arguments to update or create a LinkClick.
+     * @example
+     * // Update or create a LinkClick
+     * const linkClick = await prisma.linkClick.upsert({
+     *   create: {
+     *     // ... data to create a LinkClick
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LinkClick we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LinkClickUpsertArgs>(args: SelectSubset<T, LinkClickUpsertArgs<ExtArgs>>): Prisma__LinkClickClient<$Result.GetResult<Prisma.$LinkClickPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LinkClicks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickCountArgs} args - Arguments to filter LinkClicks to count.
+     * @example
+     * // Count the number of LinkClicks
+     * const count = await prisma.linkClick.count({
+     *   where: {
+     *     // ... the filter for the LinkClicks we want to count
+     *   }
+     * })
+    **/
+    count<T extends LinkClickCountArgs>(
+      args?: Subset<T, LinkClickCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LinkClickCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LinkClick.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LinkClickAggregateArgs>(args: Subset<T, LinkClickAggregateArgs>): Prisma.PrismaPromise<GetLinkClickAggregateType<T>>
+
+    /**
+     * Group by LinkClick.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinkClickGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LinkClickGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LinkClickGroupByArgs['orderBy'] }
+        : { orderBy?: LinkClickGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LinkClickGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLinkClickGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LinkClick model
+   */
+  readonly fields: LinkClickFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LinkClick.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LinkClickClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LinkClick model
+   */
+  interface LinkClickFieldRefs {
+    readonly id: FieldRef<"LinkClick", 'String'>
+    readonly userId: FieldRef<"LinkClick", 'String'>
+    readonly link: FieldRef<"LinkClick", 'String'>
+    readonly createdAt: FieldRef<"LinkClick", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LinkClick findUnique
+   */
+  export type LinkClickFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * Filter, which LinkClick to fetch.
+     */
+    where: LinkClickWhereUniqueInput
+  }
+
+  /**
+   * LinkClick findUniqueOrThrow
+   */
+  export type LinkClickFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * Filter, which LinkClick to fetch.
+     */
+    where: LinkClickWhereUniqueInput
+  }
+
+  /**
+   * LinkClick findFirst
+   */
+  export type LinkClickFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * Filter, which LinkClick to fetch.
+     */
+    where?: LinkClickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinkClicks to fetch.
+     */
+    orderBy?: LinkClickOrderByWithRelationInput | LinkClickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LinkClicks.
+     */
+    cursor?: LinkClickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinkClicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinkClicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LinkClicks.
+     */
+    distinct?: LinkClickScalarFieldEnum | LinkClickScalarFieldEnum[]
+  }
+
+  /**
+   * LinkClick findFirstOrThrow
+   */
+  export type LinkClickFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * Filter, which LinkClick to fetch.
+     */
+    where?: LinkClickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinkClicks to fetch.
+     */
+    orderBy?: LinkClickOrderByWithRelationInput | LinkClickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LinkClicks.
+     */
+    cursor?: LinkClickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinkClicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinkClicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LinkClicks.
+     */
+    distinct?: LinkClickScalarFieldEnum | LinkClickScalarFieldEnum[]
+  }
+
+  /**
+   * LinkClick findMany
+   */
+  export type LinkClickFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * Filter, which LinkClicks to fetch.
+     */
+    where?: LinkClickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinkClicks to fetch.
+     */
+    orderBy?: LinkClickOrderByWithRelationInput | LinkClickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LinkClicks.
+     */
+    cursor?: LinkClickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinkClicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinkClicks.
+     */
+    skip?: number
+    distinct?: LinkClickScalarFieldEnum | LinkClickScalarFieldEnum[]
+  }
+
+  /**
+   * LinkClick create
+   */
+  export type LinkClickCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LinkClick.
+     */
+    data: XOR<LinkClickCreateInput, LinkClickUncheckedCreateInput>
+  }
+
+  /**
+   * LinkClick createMany
+   */
+  export type LinkClickCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LinkClicks.
+     */
+    data: LinkClickCreateManyInput | LinkClickCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LinkClick createManyAndReturn
+   */
+  export type LinkClickCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * The data used to create many LinkClicks.
+     */
+    data: LinkClickCreateManyInput | LinkClickCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LinkClick update
+   */
+  export type LinkClickUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LinkClick.
+     */
+    data: XOR<LinkClickUpdateInput, LinkClickUncheckedUpdateInput>
+    /**
+     * Choose, which LinkClick to update.
+     */
+    where: LinkClickWhereUniqueInput
+  }
+
+  /**
+   * LinkClick updateMany
+   */
+  export type LinkClickUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LinkClicks.
+     */
+    data: XOR<LinkClickUpdateManyMutationInput, LinkClickUncheckedUpdateManyInput>
+    /**
+     * Filter which LinkClicks to update
+     */
+    where?: LinkClickWhereInput
+    /**
+     * Limit how many LinkClicks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LinkClick updateManyAndReturn
+   */
+  export type LinkClickUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * The data used to update LinkClicks.
+     */
+    data: XOR<LinkClickUpdateManyMutationInput, LinkClickUncheckedUpdateManyInput>
+    /**
+     * Filter which LinkClicks to update
+     */
+    where?: LinkClickWhereInput
+    /**
+     * Limit how many LinkClicks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LinkClick upsert
+   */
+  export type LinkClickUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LinkClick to update in case it exists.
+     */
+    where: LinkClickWhereUniqueInput
+    /**
+     * In case the LinkClick found by the `where` argument doesn't exist, create a new LinkClick with this data.
+     */
+    create: XOR<LinkClickCreateInput, LinkClickUncheckedCreateInput>
+    /**
+     * In case the LinkClick was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LinkClickUpdateInput, LinkClickUncheckedUpdateInput>
+  }
+
+  /**
+   * LinkClick delete
+   */
+  export type LinkClickDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
+    /**
+     * Filter which LinkClick to delete.
+     */
+    where: LinkClickWhereUniqueInput
+  }
+
+  /**
+   * LinkClick deleteMany
+   */
+  export type LinkClickDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LinkClicks to delete
+     */
+    where?: LinkClickWhereInput
+    /**
+     * Limit how many LinkClicks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LinkClick without action
+   */
+  export type LinkClickDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkClick
+     */
+    select?: LinkClickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinkClick
+     */
+    omit?: LinkClickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkClickInclude<ExtArgs> | null
   }
 
 
@@ -7204,338 +8377,350 @@ export namespace Prisma {
 
 
   /**
-   * Model AI_Pitch
+   * Model AIPitch
    */
 
-  export type AggregateAI_Pitch = {
-    _count: AI_PitchCountAggregateOutputType | null
-    _min: AI_PitchMinAggregateOutputType | null
-    _max: AI_PitchMaxAggregateOutputType | null
+  export type AggregateAIPitch = {
+    _count: AIPitchCountAggregateOutputType | null
+    _min: AIPitchMinAggregateOutputType | null
+    _max: AIPitchMaxAggregateOutputType | null
   }
 
-  export type AI_PitchMinAggregateOutputType = {
+  export type AIPitchMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    title: string | null
     content: string | null
     createdAt: Date | null
   }
 
-  export type AI_PitchMaxAggregateOutputType = {
+  export type AIPitchMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    title: string | null
     content: string | null
     createdAt: Date | null
   }
 
-  export type AI_PitchCountAggregateOutputType = {
+  export type AIPitchCountAggregateOutputType = {
     id: number
     userId: number
+    title: number
     content: number
     createdAt: number
     _all: number
   }
 
 
-  export type AI_PitchMinAggregateInputType = {
+  export type AIPitchMinAggregateInputType = {
     id?: true
     userId?: true
+    title?: true
     content?: true
     createdAt?: true
   }
 
-  export type AI_PitchMaxAggregateInputType = {
+  export type AIPitchMaxAggregateInputType = {
     id?: true
     userId?: true
+    title?: true
     content?: true
     createdAt?: true
   }
 
-  export type AI_PitchCountAggregateInputType = {
+  export type AIPitchCountAggregateInputType = {
     id?: true
     userId?: true
+    title?: true
     content?: true
     createdAt?: true
     _all?: true
   }
 
-  export type AI_PitchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which AI_Pitch to aggregate.
+     * Filter which AIPitch to aggregate.
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AI_Pitches to fetch.
+     * Determine the order of AIPitches to fetch.
      */
-    orderBy?: AI_PitchOrderByWithRelationInput | AI_PitchOrderByWithRelationInput[]
+    orderBy?: AIPitchOrderByWithRelationInput | AIPitchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: AI_PitchWhereUniqueInput
+    cursor?: AIPitchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AI_Pitches from the position of the cursor.
+     * Take `±n` AIPitches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AI_Pitches.
+     * Skip the first `n` AIPitches.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned AI_Pitches
+     * Count returned AIPitches
     **/
-    _count?: true | AI_PitchCountAggregateInputType
+    _count?: true | AIPitchCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: AI_PitchMinAggregateInputType
+    _min?: AIPitchMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: AI_PitchMaxAggregateInputType
+    _max?: AIPitchMaxAggregateInputType
   }
 
-  export type GetAI_PitchAggregateType<T extends AI_PitchAggregateArgs> = {
-        [P in keyof T & keyof AggregateAI_Pitch]: P extends '_count' | 'count'
+  export type GetAIPitchAggregateType<T extends AIPitchAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIPitch]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateAI_Pitch[P]>
-      : GetScalarType<T[P], AggregateAI_Pitch[P]>
+        : GetScalarType<T[P], AggregateAIPitch[P]>
+      : GetScalarType<T[P], AggregateAIPitch[P]>
   }
 
 
 
 
-  export type AI_PitchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AI_PitchWhereInput
-    orderBy?: AI_PitchOrderByWithAggregationInput | AI_PitchOrderByWithAggregationInput[]
-    by: AI_PitchScalarFieldEnum[] | AI_PitchScalarFieldEnum
-    having?: AI_PitchScalarWhereWithAggregatesInput
+  export type AIPitchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIPitchWhereInput
+    orderBy?: AIPitchOrderByWithAggregationInput | AIPitchOrderByWithAggregationInput[]
+    by: AIPitchScalarFieldEnum[] | AIPitchScalarFieldEnum
+    having?: AIPitchScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: AI_PitchCountAggregateInputType | true
-    _min?: AI_PitchMinAggregateInputType
-    _max?: AI_PitchMaxAggregateInputType
+    _count?: AIPitchCountAggregateInputType | true
+    _min?: AIPitchMinAggregateInputType
+    _max?: AIPitchMaxAggregateInputType
   }
 
-  export type AI_PitchGroupByOutputType = {
+  export type AIPitchGroupByOutputType = {
     id: string
     userId: string
+    title: string
     content: string
     createdAt: Date
-    _count: AI_PitchCountAggregateOutputType | null
-    _min: AI_PitchMinAggregateOutputType | null
-    _max: AI_PitchMaxAggregateOutputType | null
+    _count: AIPitchCountAggregateOutputType | null
+    _min: AIPitchMinAggregateOutputType | null
+    _max: AIPitchMaxAggregateOutputType | null
   }
 
-  type GetAI_PitchGroupByPayload<T extends AI_PitchGroupByArgs> = Prisma.PrismaPromise<
+  type GetAIPitchGroupByPayload<T extends AIPitchGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<AI_PitchGroupByOutputType, T['by']> &
+      PickEnumerable<AIPitchGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof AI_PitchGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof AIPitchGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], AI_PitchGroupByOutputType[P]>
-            : GetScalarType<T[P], AI_PitchGroupByOutputType[P]>
+              : GetScalarType<T[P], AIPitchGroupByOutputType[P]>
+            : GetScalarType<T[P], AIPitchGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type AI_PitchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type AIPitchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    title?: boolean
     content?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aI_Pitch"]>
+  }, ExtArgs["result"]["aIPitch"]>
 
-  export type AI_PitchSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type AIPitchSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    title?: boolean
     content?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aI_Pitch"]>
+  }, ExtArgs["result"]["aIPitch"]>
 
-  export type AI_PitchSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type AIPitchSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    title?: boolean
     content?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aI_Pitch"]>
+  }, ExtArgs["result"]["aIPitch"]>
 
-  export type AI_PitchSelectScalar = {
+  export type AIPitchSelectScalar = {
     id?: boolean
     userId?: boolean
+    title?: boolean
     content?: boolean
     createdAt?: boolean
   }
 
-  export type AI_PitchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "content" | "createdAt", ExtArgs["result"]["aI_Pitch"]>
-  export type AI_PitchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "content" | "createdAt", ExtArgs["result"]["aIPitch"]>
+  export type AIPitchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type AI_PitchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type AI_PitchIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $AI_PitchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AI_Pitch"
+  export type $AIPitchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIPitch"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      title: string
       content: string
       createdAt: Date
-    }, ExtArgs["result"]["aI_Pitch"]>
+    }, ExtArgs["result"]["aIPitch"]>
     composites: {}
   }
 
-  type AI_PitchGetPayload<S extends boolean | null | undefined | AI_PitchDefaultArgs> = $Result.GetResult<Prisma.$AI_PitchPayload, S>
+  type AIPitchGetPayload<S extends boolean | null | undefined | AIPitchDefaultArgs> = $Result.GetResult<Prisma.$AIPitchPayload, S>
 
-  type AI_PitchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AI_PitchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AI_PitchCountAggregateInputType | true
+  type AIPitchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AIPitchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AIPitchCountAggregateInputType | true
     }
 
-  export interface AI_PitchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AI_Pitch'], meta: { name: 'AI_Pitch' } }
+  export interface AIPitchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIPitch'], meta: { name: 'AIPitch' } }
     /**
-     * Find zero or one AI_Pitch that matches the filter.
-     * @param {AI_PitchFindUniqueArgs} args - Arguments to find a AI_Pitch
+     * Find zero or one AIPitch that matches the filter.
+     * @param {AIPitchFindUniqueArgs} args - Arguments to find a AIPitch
      * @example
-     * // Get one AI_Pitch
-     * const aI_Pitch = await prisma.aI_Pitch.findUnique({
+     * // Get one AIPitch
+     * const aIPitch = await prisma.aIPitch.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends AI_PitchFindUniqueArgs>(args: SelectSubset<T, AI_PitchFindUniqueArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends AIPitchFindUniqueArgs>(args: SelectSubset<T, AIPitchFindUniqueArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one AI_Pitch that matches the filter or throw an error with `error.code='P2025'`
+     * Find one AIPitch that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {AI_PitchFindUniqueOrThrowArgs} args - Arguments to find a AI_Pitch
+     * @param {AIPitchFindUniqueOrThrowArgs} args - Arguments to find a AIPitch
      * @example
-     * // Get one AI_Pitch
-     * const aI_Pitch = await prisma.aI_Pitch.findUniqueOrThrow({
+     * // Get one AIPitch
+     * const aIPitch = await prisma.aIPitch.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends AI_PitchFindUniqueOrThrowArgs>(args: SelectSubset<T, AI_PitchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends AIPitchFindUniqueOrThrowArgs>(args: SelectSubset<T, AIPitchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first AI_Pitch that matches the filter.
+     * Find the first AIPitch that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchFindFirstArgs} args - Arguments to find a AI_Pitch
+     * @param {AIPitchFindFirstArgs} args - Arguments to find a AIPitch
      * @example
-     * // Get one AI_Pitch
-     * const aI_Pitch = await prisma.aI_Pitch.findFirst({
+     * // Get one AIPitch
+     * const aIPitch = await prisma.aIPitch.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends AI_PitchFindFirstArgs>(args?: SelectSubset<T, AI_PitchFindFirstArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends AIPitchFindFirstArgs>(args?: SelectSubset<T, AIPitchFindFirstArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first AI_Pitch that matches the filter or
+     * Find the first AIPitch that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchFindFirstOrThrowArgs} args - Arguments to find a AI_Pitch
+     * @param {AIPitchFindFirstOrThrowArgs} args - Arguments to find a AIPitch
      * @example
-     * // Get one AI_Pitch
-     * const aI_Pitch = await prisma.aI_Pitch.findFirstOrThrow({
+     * // Get one AIPitch
+     * const aIPitch = await prisma.aIPitch.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends AI_PitchFindFirstOrThrowArgs>(args?: SelectSubset<T, AI_PitchFindFirstOrThrowArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends AIPitchFindFirstOrThrowArgs>(args?: SelectSubset<T, AIPitchFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more AI_Pitches that matches the filter.
+     * Find zero or more AIPitches that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {AIPitchFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all AI_Pitches
-     * const aI_Pitches = await prisma.aI_Pitch.findMany()
+     * // Get all AIPitches
+     * const aIPitches = await prisma.aIPitch.findMany()
      * 
-     * // Get first 10 AI_Pitches
-     * const aI_Pitches = await prisma.aI_Pitch.findMany({ take: 10 })
+     * // Get first 10 AIPitches
+     * const aIPitches = await prisma.aIPitch.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const aI_PitchWithIdOnly = await prisma.aI_Pitch.findMany({ select: { id: true } })
+     * const aIPitchWithIdOnly = await prisma.aIPitch.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends AI_PitchFindManyArgs>(args?: SelectSubset<T, AI_PitchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends AIPitchFindManyArgs>(args?: SelectSubset<T, AIPitchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a AI_Pitch.
-     * @param {AI_PitchCreateArgs} args - Arguments to create a AI_Pitch.
+     * Create a AIPitch.
+     * @param {AIPitchCreateArgs} args - Arguments to create a AIPitch.
      * @example
-     * // Create one AI_Pitch
-     * const AI_Pitch = await prisma.aI_Pitch.create({
+     * // Create one AIPitch
+     * const AIPitch = await prisma.aIPitch.create({
      *   data: {
-     *     // ... data to create a AI_Pitch
+     *     // ... data to create a AIPitch
      *   }
      * })
      * 
      */
-    create<T extends AI_PitchCreateArgs>(args: SelectSubset<T, AI_PitchCreateArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends AIPitchCreateArgs>(args: SelectSubset<T, AIPitchCreateArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many AI_Pitches.
-     * @param {AI_PitchCreateManyArgs} args - Arguments to create many AI_Pitches.
+     * Create many AIPitches.
+     * @param {AIPitchCreateManyArgs} args - Arguments to create many AIPitches.
      * @example
-     * // Create many AI_Pitches
-     * const aI_Pitch = await prisma.aI_Pitch.createMany({
+     * // Create many AIPitches
+     * const aIPitch = await prisma.aIPitch.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends AI_PitchCreateManyArgs>(args?: SelectSubset<T, AI_PitchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends AIPitchCreateManyArgs>(args?: SelectSubset<T, AIPitchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many AI_Pitches and returns the data saved in the database.
-     * @param {AI_PitchCreateManyAndReturnArgs} args - Arguments to create many AI_Pitches.
+     * Create many AIPitches and returns the data saved in the database.
+     * @param {AIPitchCreateManyAndReturnArgs} args - Arguments to create many AIPitches.
      * @example
-     * // Create many AI_Pitches
-     * const aI_Pitch = await prisma.aI_Pitch.createManyAndReturn({
+     * // Create many AIPitches
+     * const aIPitch = await prisma.aIPitch.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many AI_Pitches and only return the `id`
-     * const aI_PitchWithIdOnly = await prisma.aI_Pitch.createManyAndReturn({
+     * // Create many AIPitches and only return the `id`
+     * const aIPitchWithIdOnly = await prisma.aIPitch.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7545,28 +8730,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends AI_PitchCreateManyAndReturnArgs>(args?: SelectSubset<T, AI_PitchCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends AIPitchCreateManyAndReturnArgs>(args?: SelectSubset<T, AIPitchCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a AI_Pitch.
-     * @param {AI_PitchDeleteArgs} args - Arguments to delete one AI_Pitch.
+     * Delete a AIPitch.
+     * @param {AIPitchDeleteArgs} args - Arguments to delete one AIPitch.
      * @example
-     * // Delete one AI_Pitch
-     * const AI_Pitch = await prisma.aI_Pitch.delete({
+     * // Delete one AIPitch
+     * const AIPitch = await prisma.aIPitch.delete({
      *   where: {
-     *     // ... filter to delete one AI_Pitch
+     *     // ... filter to delete one AIPitch
      *   }
      * })
      * 
      */
-    delete<T extends AI_PitchDeleteArgs>(args: SelectSubset<T, AI_PitchDeleteArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends AIPitchDeleteArgs>(args: SelectSubset<T, AIPitchDeleteArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one AI_Pitch.
-     * @param {AI_PitchUpdateArgs} args - Arguments to update one AI_Pitch.
+     * Update one AIPitch.
+     * @param {AIPitchUpdateArgs} args - Arguments to update one AIPitch.
      * @example
-     * // Update one AI_Pitch
-     * const aI_Pitch = await prisma.aI_Pitch.update({
+     * // Update one AIPitch
+     * const aIPitch = await prisma.aIPitch.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7576,30 +8761,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends AI_PitchUpdateArgs>(args: SelectSubset<T, AI_PitchUpdateArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends AIPitchUpdateArgs>(args: SelectSubset<T, AIPitchUpdateArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more AI_Pitches.
-     * @param {AI_PitchDeleteManyArgs} args - Arguments to filter AI_Pitches to delete.
+     * Delete zero or more AIPitches.
+     * @param {AIPitchDeleteManyArgs} args - Arguments to filter AIPitches to delete.
      * @example
-     * // Delete a few AI_Pitches
-     * const { count } = await prisma.aI_Pitch.deleteMany({
+     * // Delete a few AIPitches
+     * const { count } = await prisma.aIPitch.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends AI_PitchDeleteManyArgs>(args?: SelectSubset<T, AI_PitchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends AIPitchDeleteManyArgs>(args?: SelectSubset<T, AIPitchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more AI_Pitches.
+     * Update zero or more AIPitches.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {AIPitchUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many AI_Pitches
-     * const aI_Pitch = await prisma.aI_Pitch.updateMany({
+     * // Update many AIPitches
+     * const aIPitch = await prisma.aIPitch.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7609,14 +8794,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends AI_PitchUpdateManyArgs>(args: SelectSubset<T, AI_PitchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends AIPitchUpdateManyArgs>(args: SelectSubset<T, AIPitchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more AI_Pitches and returns the data updated in the database.
-     * @param {AI_PitchUpdateManyAndReturnArgs} args - Arguments to update many AI_Pitches.
+     * Update zero or more AIPitches and returns the data updated in the database.
+     * @param {AIPitchUpdateManyAndReturnArgs} args - Arguments to update many AIPitches.
      * @example
-     * // Update many AI_Pitches
-     * const aI_Pitch = await prisma.aI_Pitch.updateManyAndReturn({
+     * // Update many AIPitches
+     * const aIPitch = await prisma.aIPitch.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7625,8 +8810,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more AI_Pitches and only return the `id`
-     * const aI_PitchWithIdOnly = await prisma.aI_Pitch.updateManyAndReturn({
+     * // Update zero or more AIPitches and only return the `id`
+     * const aIPitchWithIdOnly = await prisma.aIPitch.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7639,56 +8824,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends AI_PitchUpdateManyAndReturnArgs>(args: SelectSubset<T, AI_PitchUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends AIPitchUpdateManyAndReturnArgs>(args: SelectSubset<T, AIPitchUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one AI_Pitch.
-     * @param {AI_PitchUpsertArgs} args - Arguments to update or create a AI_Pitch.
+     * Create or update one AIPitch.
+     * @param {AIPitchUpsertArgs} args - Arguments to update or create a AIPitch.
      * @example
-     * // Update or create a AI_Pitch
-     * const aI_Pitch = await prisma.aI_Pitch.upsert({
+     * // Update or create a AIPitch
+     * const aIPitch = await prisma.aIPitch.upsert({
      *   create: {
-     *     // ... data to create a AI_Pitch
+     *     // ... data to create a AIPitch
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the AI_Pitch we want to update
+     *     // ... the filter for the AIPitch we want to update
      *   }
      * })
      */
-    upsert<T extends AI_PitchUpsertArgs>(args: SelectSubset<T, AI_PitchUpsertArgs<ExtArgs>>): Prisma__AI_PitchClient<$Result.GetResult<Prisma.$AI_PitchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends AIPitchUpsertArgs>(args: SelectSubset<T, AIPitchUpsertArgs<ExtArgs>>): Prisma__AIPitchClient<$Result.GetResult<Prisma.$AIPitchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of AI_Pitches.
+     * Count the number of AIPitches.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchCountArgs} args - Arguments to filter AI_Pitches to count.
+     * @param {AIPitchCountArgs} args - Arguments to filter AIPitches to count.
      * @example
-     * // Count the number of AI_Pitches
-     * const count = await prisma.aI_Pitch.count({
+     * // Count the number of AIPitches
+     * const count = await prisma.aIPitch.count({
      *   where: {
-     *     // ... the filter for the AI_Pitches we want to count
+     *     // ... the filter for the AIPitches we want to count
      *   }
      * })
     **/
-    count<T extends AI_PitchCountArgs>(
-      args?: Subset<T, AI_PitchCountArgs>,
+    count<T extends AIPitchCountArgs>(
+      args?: Subset<T, AIPitchCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], AI_PitchCountAggregateOutputType>
+          : GetScalarType<T['select'], AIPitchCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a AI_Pitch.
+     * Allows you to perform aggregations operations on a AIPitch.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {AIPitchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7708,13 +8893,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends AI_PitchAggregateArgs>(args: Subset<T, AI_PitchAggregateArgs>): Prisma.PrismaPromise<GetAI_PitchAggregateType<T>>
+    aggregate<T extends AIPitchAggregateArgs>(args: Subset<T, AIPitchAggregateArgs>): Prisma.PrismaPromise<GetAIPitchAggregateType<T>>
 
     /**
-     * Group by AI_Pitch.
+     * Group by AIPitch.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AI_PitchGroupByArgs} args - Group by arguments.
+     * @param {AIPitchGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7729,14 +8914,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends AI_PitchGroupByArgs,
+      T extends AIPitchGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AI_PitchGroupByArgs['orderBy'] }
-        : { orderBy?: AI_PitchGroupByArgs['orderBy'] },
+        ? { orderBy: AIPitchGroupByArgs['orderBy'] }
+        : { orderBy?: AIPitchGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7785,20 +8970,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, AI_PitchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAI_PitchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, AIPitchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIPitchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the AI_Pitch model
+   * Fields of the AIPitch model
    */
-  readonly fields: AI_PitchFieldRefs;
+  readonly fields: AIPitchFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for AI_Pitch.
+   * The delegate class that acts as a "Promise-like" for AIPitch.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__AI_PitchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__AIPitchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -7827,424 +9012,425 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the AI_Pitch model
+   * Fields of the AIPitch model
    */
-  interface AI_PitchFieldRefs {
-    readonly id: FieldRef<"AI_Pitch", 'String'>
-    readonly userId: FieldRef<"AI_Pitch", 'String'>
-    readonly content: FieldRef<"AI_Pitch", 'String'>
-    readonly createdAt: FieldRef<"AI_Pitch", 'DateTime'>
+  interface AIPitchFieldRefs {
+    readonly id: FieldRef<"AIPitch", 'String'>
+    readonly userId: FieldRef<"AIPitch", 'String'>
+    readonly title: FieldRef<"AIPitch", 'String'>
+    readonly content: FieldRef<"AIPitch", 'String'>
+    readonly createdAt: FieldRef<"AIPitch", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * AI_Pitch findUnique
+   * AIPitch findUnique
    */
-  export type AI_PitchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * Filter, which AI_Pitch to fetch.
+     * Filter, which AIPitch to fetch.
      */
-    where: AI_PitchWhereUniqueInput
+    where: AIPitchWhereUniqueInput
   }
 
   /**
-   * AI_Pitch findUniqueOrThrow
+   * AIPitch findUniqueOrThrow
    */
-  export type AI_PitchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * Filter, which AI_Pitch to fetch.
+     * Filter, which AIPitch to fetch.
      */
-    where: AI_PitchWhereUniqueInput
+    where: AIPitchWhereUniqueInput
   }
 
   /**
-   * AI_Pitch findFirst
+   * AIPitch findFirst
    */
-  export type AI_PitchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * Filter, which AI_Pitch to fetch.
+     * Filter, which AIPitch to fetch.
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AI_Pitches to fetch.
+     * Determine the order of AIPitches to fetch.
      */
-    orderBy?: AI_PitchOrderByWithRelationInput | AI_PitchOrderByWithRelationInput[]
+    orderBy?: AIPitchOrderByWithRelationInput | AIPitchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for AI_Pitches.
+     * Sets the position for searching for AIPitches.
      */
-    cursor?: AI_PitchWhereUniqueInput
+    cursor?: AIPitchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AI_Pitches from the position of the cursor.
+     * Take `±n` AIPitches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AI_Pitches.
+     * Skip the first `n` AIPitches.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of AI_Pitches.
+     * Filter by unique combinations of AIPitches.
      */
-    distinct?: AI_PitchScalarFieldEnum | AI_PitchScalarFieldEnum[]
+    distinct?: AIPitchScalarFieldEnum | AIPitchScalarFieldEnum[]
   }
 
   /**
-   * AI_Pitch findFirstOrThrow
+   * AIPitch findFirstOrThrow
    */
-  export type AI_PitchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * Filter, which AI_Pitch to fetch.
+     * Filter, which AIPitch to fetch.
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AI_Pitches to fetch.
+     * Determine the order of AIPitches to fetch.
      */
-    orderBy?: AI_PitchOrderByWithRelationInput | AI_PitchOrderByWithRelationInput[]
+    orderBy?: AIPitchOrderByWithRelationInput | AIPitchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for AI_Pitches.
+     * Sets the position for searching for AIPitches.
      */
-    cursor?: AI_PitchWhereUniqueInput
+    cursor?: AIPitchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AI_Pitches from the position of the cursor.
+     * Take `±n` AIPitches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AI_Pitches.
+     * Skip the first `n` AIPitches.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of AI_Pitches.
+     * Filter by unique combinations of AIPitches.
      */
-    distinct?: AI_PitchScalarFieldEnum | AI_PitchScalarFieldEnum[]
+    distinct?: AIPitchScalarFieldEnum | AIPitchScalarFieldEnum[]
   }
 
   /**
-   * AI_Pitch findMany
+   * AIPitch findMany
    */
-  export type AI_PitchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * Filter, which AI_Pitches to fetch.
+     * Filter, which AIPitches to fetch.
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AI_Pitches to fetch.
+     * Determine the order of AIPitches to fetch.
      */
-    orderBy?: AI_PitchOrderByWithRelationInput | AI_PitchOrderByWithRelationInput[]
+    orderBy?: AIPitchOrderByWithRelationInput | AIPitchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing AI_Pitches.
+     * Sets the position for listing AIPitches.
      */
-    cursor?: AI_PitchWhereUniqueInput
+    cursor?: AIPitchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AI_Pitches from the position of the cursor.
+     * Take `±n` AIPitches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AI_Pitches.
+     * Skip the first `n` AIPitches.
      */
     skip?: number
-    distinct?: AI_PitchScalarFieldEnum | AI_PitchScalarFieldEnum[]
+    distinct?: AIPitchScalarFieldEnum | AIPitchScalarFieldEnum[]
   }
 
   /**
-   * AI_Pitch create
+   * AIPitch create
    */
-  export type AI_PitchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * The data needed to create a AI_Pitch.
+     * The data needed to create a AIPitch.
      */
-    data: XOR<AI_PitchCreateInput, AI_PitchUncheckedCreateInput>
+    data: XOR<AIPitchCreateInput, AIPitchUncheckedCreateInput>
   }
 
   /**
-   * AI_Pitch createMany
+   * AIPitch createMany
    */
-  export type AI_PitchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many AI_Pitches.
+     * The data used to create many AIPitches.
      */
-    data: AI_PitchCreateManyInput | AI_PitchCreateManyInput[]
+    data: AIPitchCreateManyInput | AIPitchCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * AI_Pitch createManyAndReturn
+   * AIPitch createManyAndReturn
    */
-  export type AI_PitchCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelectCreateManyAndReturn<ExtArgs> | null
+    select?: AIPitchSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
-     * The data used to create many AI_Pitches.
+     * The data used to create many AIPitches.
      */
-    data: AI_PitchCreateManyInput | AI_PitchCreateManyInput[]
+    data: AIPitchCreateManyInput | AIPitchCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: AIPitchIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * AI_Pitch update
+   * AIPitch update
    */
-  export type AI_PitchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * The data needed to update a AI_Pitch.
+     * The data needed to update a AIPitch.
      */
-    data: XOR<AI_PitchUpdateInput, AI_PitchUncheckedUpdateInput>
+    data: XOR<AIPitchUpdateInput, AIPitchUncheckedUpdateInput>
     /**
-     * Choose, which AI_Pitch to update.
+     * Choose, which AIPitch to update.
      */
-    where: AI_PitchWhereUniqueInput
+    where: AIPitchWhereUniqueInput
   }
 
   /**
-   * AI_Pitch updateMany
+   * AIPitch updateMany
    */
-  export type AI_PitchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update AI_Pitches.
+     * The data used to update AIPitches.
      */
-    data: XOR<AI_PitchUpdateManyMutationInput, AI_PitchUncheckedUpdateManyInput>
+    data: XOR<AIPitchUpdateManyMutationInput, AIPitchUncheckedUpdateManyInput>
     /**
-     * Filter which AI_Pitches to update
+     * Filter which AIPitches to update
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
-     * Limit how many AI_Pitches to update.
+     * Limit how many AIPitches to update.
      */
     limit?: number
   }
 
   /**
-   * AI_Pitch updateManyAndReturn
+   * AIPitch updateManyAndReturn
    */
-  export type AI_PitchUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: AIPitchSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
-     * The data used to update AI_Pitches.
+     * The data used to update AIPitches.
      */
-    data: XOR<AI_PitchUpdateManyMutationInput, AI_PitchUncheckedUpdateManyInput>
+    data: XOR<AIPitchUpdateManyMutationInput, AIPitchUncheckedUpdateManyInput>
     /**
-     * Filter which AI_Pitches to update
+     * Filter which AIPitches to update
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
-     * Limit how many AI_Pitches to update.
+     * Limit how many AIPitches to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: AIPitchIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * AI_Pitch upsert
+   * AIPitch upsert
    */
-  export type AI_PitchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * The filter to search for the AI_Pitch to update in case it exists.
+     * The filter to search for the AIPitch to update in case it exists.
      */
-    where: AI_PitchWhereUniqueInput
+    where: AIPitchWhereUniqueInput
     /**
-     * In case the AI_Pitch found by the `where` argument doesn't exist, create a new AI_Pitch with this data.
+     * In case the AIPitch found by the `where` argument doesn't exist, create a new AIPitch with this data.
      */
-    create: XOR<AI_PitchCreateInput, AI_PitchUncheckedCreateInput>
+    create: XOR<AIPitchCreateInput, AIPitchUncheckedCreateInput>
     /**
-     * In case the AI_Pitch was found with the provided `where` argument, update it with this data.
+     * In case the AIPitch was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<AI_PitchUpdateInput, AI_PitchUncheckedUpdateInput>
+    update: XOR<AIPitchUpdateInput, AIPitchUncheckedUpdateInput>
   }
 
   /**
-   * AI_Pitch delete
+   * AIPitch delete
    */
-  export type AI_PitchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
     /**
-     * Filter which AI_Pitch to delete.
+     * Filter which AIPitch to delete.
      */
-    where: AI_PitchWhereUniqueInput
+    where: AIPitchWhereUniqueInput
   }
 
   /**
-   * AI_Pitch deleteMany
+   * AIPitch deleteMany
    */
-  export type AI_PitchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which AI_Pitches to delete
+     * Filter which AIPitches to delete
      */
-    where?: AI_PitchWhereInput
+    where?: AIPitchWhereInput
     /**
-     * Limit how many AI_Pitches to delete.
+     * Limit how many AIPitches to delete.
      */
     limit?: number
   }
 
   /**
-   * AI_Pitch without action
+   * AIPitch without action
    */
-  export type AI_PitchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AIPitchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AI_Pitch
+     * Select specific fields to fetch from the AIPitch
      */
-    select?: AI_PitchSelect<ExtArgs> | null
+    select?: AIPitchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AI_Pitch
+     * Omit specific fields from the AIPitch
      */
-    omit?: AI_PitchOmit<ExtArgs> | null
+    omit?: AIPitchOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AI_PitchInclude<ExtArgs> | null
+    include?: AIPitchInclude<ExtArgs> | null
   }
 
 
@@ -8283,6 +9469,16 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const LinkClickScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    link: 'link',
+    createdAt: 'createdAt'
+  };
+
+  export type LinkClickScalarFieldEnum = (typeof LinkClickScalarFieldEnum)[keyof typeof LinkClickScalarFieldEnum]
 
 
   export const LinkScalarFieldEnum: {
@@ -8338,14 +9534,15 @@ export namespace Prisma {
   export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
 
 
-  export const AI_PitchScalarFieldEnum: {
+  export const AIPitchScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    title: 'title',
     content: 'content',
     createdAt: 'createdAt'
   };
 
-  export type AI_PitchScalarFieldEnum = (typeof AI_PitchScalarFieldEnum)[keyof typeof AI_PitchScalarFieldEnum]
+  export type AIPitchScalarFieldEnum = (typeof AIPitchScalarFieldEnum)[keyof typeof AIPitchScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8495,7 +9692,8 @@ export namespace Prisma {
     links?: LinkListRelationFilter
     pdfs?: PDFListRelationFilter
     invoices?: InvoiceListRelationFilter
-    aiPitches?: AI_PitchListRelationFilter
+    aiPitches?: AIPitchListRelationFilter
+    LinkClick?: LinkClickListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8519,7 +9717,8 @@ export namespace Prisma {
     links?: LinkOrderByRelationAggregateInput
     pdfs?: PDFOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
-    aiPitches?: AI_PitchOrderByRelationAggregateInput
+    aiPitches?: AIPitchOrderByRelationAggregateInput
+    LinkClick?: LinkClickOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8546,7 +9745,8 @@ export namespace Prisma {
     links?: LinkListRelationFilter
     pdfs?: PDFListRelationFilter
     invoices?: InvoiceListRelationFilter
-    aiPitches?: AI_PitchListRelationFilter
+    aiPitches?: AIPitchListRelationFilter
+    LinkClick?: LinkClickListRelationFilter
   }, "id" | "username" | "email" | "clerkId">
 
   export type UserOrderByWithAggregationInput = {
@@ -8595,6 +9795,56 @@ export namespace Prisma {
     companyAddress?: StringNullableWithAggregatesFilter<"User"> | string | null
     aiCredits?: IntWithAggregatesFilter<"User"> | number
     pitchUsage?: IntWithAggregatesFilter<"User"> | number
+  }
+
+  export type LinkClickWhereInput = {
+    AND?: LinkClickWhereInput | LinkClickWhereInput[]
+    OR?: LinkClickWhereInput[]
+    NOT?: LinkClickWhereInput | LinkClickWhereInput[]
+    id?: StringFilter<"LinkClick"> | string
+    userId?: StringFilter<"LinkClick"> | string
+    link?: StringFilter<"LinkClick"> | string
+    createdAt?: DateTimeFilter<"LinkClick"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LinkClickOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    link?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LinkClickWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LinkClickWhereInput | LinkClickWhereInput[]
+    OR?: LinkClickWhereInput[]
+    NOT?: LinkClickWhereInput | LinkClickWhereInput[]
+    userId?: StringFilter<"LinkClick"> | string
+    link?: StringFilter<"LinkClick"> | string
+    createdAt?: DateTimeFilter<"LinkClick"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LinkClickOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    link?: SortOrder
+    createdAt?: SortOrder
+    _count?: LinkClickCountOrderByAggregateInput
+    _max?: LinkClickMaxOrderByAggregateInput
+    _min?: LinkClickMinOrderByAggregateInput
+  }
+
+  export type LinkClickScalarWhereWithAggregatesInput = {
+    AND?: LinkClickScalarWhereWithAggregatesInput | LinkClickScalarWhereWithAggregatesInput[]
+    OR?: LinkClickScalarWhereWithAggregatesInput[]
+    NOT?: LinkClickScalarWhereWithAggregatesInput | LinkClickScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LinkClick"> | string
+    userId?: StringWithAggregatesFilter<"LinkClick"> | string
+    link?: StringWithAggregatesFilter<"LinkClick"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"LinkClick"> | Date | string
   }
 
   export type LinkWhereInput = {
@@ -8867,54 +10117,59 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
   }
 
-  export type AI_PitchWhereInput = {
-    AND?: AI_PitchWhereInput | AI_PitchWhereInput[]
-    OR?: AI_PitchWhereInput[]
-    NOT?: AI_PitchWhereInput | AI_PitchWhereInput[]
-    id?: StringFilter<"AI_Pitch"> | string
-    userId?: StringFilter<"AI_Pitch"> | string
-    content?: StringFilter<"AI_Pitch"> | string
-    createdAt?: DateTimeFilter<"AI_Pitch"> | Date | string
+  export type AIPitchWhereInput = {
+    AND?: AIPitchWhereInput | AIPitchWhereInput[]
+    OR?: AIPitchWhereInput[]
+    NOT?: AIPitchWhereInput | AIPitchWhereInput[]
+    id?: StringFilter<"AIPitch"> | string
+    userId?: StringFilter<"AIPitch"> | string
+    title?: StringFilter<"AIPitch"> | string
+    content?: StringFilter<"AIPitch"> | string
+    createdAt?: DateTimeFilter<"AIPitch"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type AI_PitchOrderByWithRelationInput = {
+  export type AIPitchOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
-  export type AI_PitchWhereUniqueInput = Prisma.AtLeast<{
+  export type AIPitchWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: AI_PitchWhereInput | AI_PitchWhereInput[]
-    OR?: AI_PitchWhereInput[]
-    NOT?: AI_PitchWhereInput | AI_PitchWhereInput[]
-    userId?: StringFilter<"AI_Pitch"> | string
-    content?: StringFilter<"AI_Pitch"> | string
-    createdAt?: DateTimeFilter<"AI_Pitch"> | Date | string
+    AND?: AIPitchWhereInput | AIPitchWhereInput[]
+    OR?: AIPitchWhereInput[]
+    NOT?: AIPitchWhereInput | AIPitchWhereInput[]
+    userId?: StringFilter<"AIPitch"> | string
+    title?: StringFilter<"AIPitch"> | string
+    content?: StringFilter<"AIPitch"> | string
+    createdAt?: DateTimeFilter<"AIPitch"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
-  export type AI_PitchOrderByWithAggregationInput = {
+  export type AIPitchOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
-    _count?: AI_PitchCountOrderByAggregateInput
-    _max?: AI_PitchMaxOrderByAggregateInput
-    _min?: AI_PitchMinOrderByAggregateInput
+    _count?: AIPitchCountOrderByAggregateInput
+    _max?: AIPitchMaxOrderByAggregateInput
+    _min?: AIPitchMinOrderByAggregateInput
   }
 
-  export type AI_PitchScalarWhereWithAggregatesInput = {
-    AND?: AI_PitchScalarWhereWithAggregatesInput | AI_PitchScalarWhereWithAggregatesInput[]
-    OR?: AI_PitchScalarWhereWithAggregatesInput[]
-    NOT?: AI_PitchScalarWhereWithAggregatesInput | AI_PitchScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"AI_Pitch"> | string
-    userId?: StringWithAggregatesFilter<"AI_Pitch"> | string
-    content?: StringWithAggregatesFilter<"AI_Pitch"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"AI_Pitch"> | Date | string
+  export type AIPitchScalarWhereWithAggregatesInput = {
+    AND?: AIPitchScalarWhereWithAggregatesInput | AIPitchScalarWhereWithAggregatesInput[]
+    OR?: AIPitchScalarWhereWithAggregatesInput[]
+    NOT?: AIPitchScalarWhereWithAggregatesInput | AIPitchScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AIPitch"> | string
+    userId?: StringWithAggregatesFilter<"AIPitch"> | string
+    title?: StringWithAggregatesFilter<"AIPitch"> | string
+    content?: StringWithAggregatesFilter<"AIPitch"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AIPitch"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -8938,7 +10193,8 @@ export namespace Prisma {
     links?: LinkCreateNestedManyWithoutUserInput
     pdfs?: PDFCreateNestedManyWithoutUserInput
     invoices?: InvoiceCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -8962,7 +10218,8 @@ export namespace Prisma {
     links?: LinkUncheckedCreateNestedManyWithoutUserInput
     pdfs?: PDFUncheckedCreateNestedManyWithoutUserInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchUncheckedCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchUncheckedCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -8986,7 +10243,8 @@ export namespace Prisma {
     links?: LinkUpdateManyWithoutUserNestedInput
     pdfs?: PDFUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9010,7 +10268,8 @@ export namespace Prisma {
     links?: LinkUncheckedUpdateManyWithoutUserNestedInput
     pdfs?: PDFUncheckedUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUncheckedUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUncheckedUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9071,6 +10330,54 @@ export namespace Prisma {
     companyAddress?: NullableStringFieldUpdateOperationsInput | string | null
     aiCredits?: IntFieldUpdateOperationsInput | number
     pitchUsage?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinkClickCreateInput = {
+    id?: string
+    link: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLinkClickInput
+  }
+
+  export type LinkClickUncheckedCreateInput = {
+    id?: string
+    userId: string
+    link: string
+    createdAt?: Date | string
+  }
+
+  export type LinkClickUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLinkClickNestedInput
+  }
+
+  export type LinkClickUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinkClickCreateManyInput = {
+    id?: string
+    userId: string
+    link: string
+    createdAt?: Date | string
+  }
+
+  export type LinkClickUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinkClickUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LinkCreateInput = {
@@ -9360,50 +10667,57 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AI_PitchCreateInput = {
+  export type AIPitchCreateInput = {
     id?: string
+    title: string
     content: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutAiPitchesInput
   }
 
-  export type AI_PitchUncheckedCreateInput = {
+  export type AIPitchUncheckedCreateInput = {
     id?: string
     userId: string
+    title: string
     content: string
     createdAt?: Date | string
   }
 
-  export type AI_PitchUpdateInput = {
+  export type AIPitchUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAiPitchesNestedInput
   }
 
-  export type AI_PitchUncheckedUpdateInput = {
+  export type AIPitchUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AI_PitchCreateManyInput = {
+  export type AIPitchCreateManyInput = {
     id?: string
     userId: string
+    title: string
     content: string
     createdAt?: Date | string
   }
 
-  export type AI_PitchUpdateManyMutationInput = {
+  export type AIPitchUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AI_PitchUncheckedUpdateManyInput = {
+  export type AIPitchUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9492,10 +10806,16 @@ export namespace Prisma {
     none?: InvoiceWhereInput
   }
 
-  export type AI_PitchListRelationFilter = {
-    every?: AI_PitchWhereInput
-    some?: AI_PitchWhereInput
-    none?: AI_PitchWhereInput
+  export type AIPitchListRelationFilter = {
+    every?: AIPitchWhereInput
+    some?: AIPitchWhereInput
+    none?: AIPitchWhereInput
+  }
+
+  export type LinkClickListRelationFilter = {
+    every?: LinkClickWhereInput
+    some?: LinkClickWhereInput
+    none?: LinkClickWhereInput
   }
 
   export type SortOrderInput = {
@@ -9515,7 +10835,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type AI_PitchOrderByRelationAggregateInput = {
+  export type AIPitchOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LinkClickOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9678,6 +11002,27 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type LinkClickCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    link?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LinkClickMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    link?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LinkClickMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    link?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LinkCountOrderByAggregateInput = {
@@ -9866,23 +11211,26 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type AI_PitchCountOrderByAggregateInput = {
+  export type AIPitchCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type AI_PitchMaxOrderByAggregateInput = {
+  export type AIPitchMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type AI_PitchMinOrderByAggregateInput = {
+  export type AIPitchMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
   }
@@ -9908,11 +11256,18 @@ export namespace Prisma {
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
-  export type AI_PitchCreateNestedManyWithoutUserInput = {
-    create?: XOR<AI_PitchCreateWithoutUserInput, AI_PitchUncheckedCreateWithoutUserInput> | AI_PitchCreateWithoutUserInput[] | AI_PitchUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AI_PitchCreateOrConnectWithoutUserInput | AI_PitchCreateOrConnectWithoutUserInput[]
-    createMany?: AI_PitchCreateManyUserInputEnvelope
-    connect?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
+  export type AIPitchCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIPitchCreateWithoutUserInput, AIPitchUncheckedCreateWithoutUserInput> | AIPitchCreateWithoutUserInput[] | AIPitchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIPitchCreateOrConnectWithoutUserInput | AIPitchCreateOrConnectWithoutUserInput[]
+    createMany?: AIPitchCreateManyUserInputEnvelope
+    connect?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+  }
+
+  export type LinkClickCreateNestedManyWithoutUserInput = {
+    create?: XOR<LinkClickCreateWithoutUserInput, LinkClickUncheckedCreateWithoutUserInput> | LinkClickCreateWithoutUserInput[] | LinkClickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LinkClickCreateOrConnectWithoutUserInput | LinkClickCreateOrConnectWithoutUserInput[]
+    createMany?: LinkClickCreateManyUserInputEnvelope
+    connect?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
   }
 
   export type LinkUncheckedCreateNestedManyWithoutUserInput = {
@@ -9936,11 +11291,18 @@ export namespace Prisma {
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
-  export type AI_PitchUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<AI_PitchCreateWithoutUserInput, AI_PitchUncheckedCreateWithoutUserInput> | AI_PitchCreateWithoutUserInput[] | AI_PitchUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AI_PitchCreateOrConnectWithoutUserInput | AI_PitchCreateOrConnectWithoutUserInput[]
-    createMany?: AI_PitchCreateManyUserInputEnvelope
-    connect?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
+  export type AIPitchUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIPitchCreateWithoutUserInput, AIPitchUncheckedCreateWithoutUserInput> | AIPitchCreateWithoutUserInput[] | AIPitchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIPitchCreateOrConnectWithoutUserInput | AIPitchCreateOrConnectWithoutUserInput[]
+    createMany?: AIPitchCreateManyUserInputEnvelope
+    connect?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+  }
+
+  export type LinkClickUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LinkClickCreateWithoutUserInput, LinkClickUncheckedCreateWithoutUserInput> | LinkClickCreateWithoutUserInput[] | LinkClickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LinkClickCreateOrConnectWithoutUserInput | LinkClickCreateOrConnectWithoutUserInput[]
+    createMany?: LinkClickCreateManyUserInputEnvelope
+    connect?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10013,18 +11375,32 @@ export namespace Prisma {
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
-  export type AI_PitchUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AI_PitchCreateWithoutUserInput, AI_PitchUncheckedCreateWithoutUserInput> | AI_PitchCreateWithoutUserInput[] | AI_PitchUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AI_PitchCreateOrConnectWithoutUserInput | AI_PitchCreateOrConnectWithoutUserInput[]
-    upsert?: AI_PitchUpsertWithWhereUniqueWithoutUserInput | AI_PitchUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AI_PitchCreateManyUserInputEnvelope
-    set?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    disconnect?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    delete?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    connect?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    update?: AI_PitchUpdateWithWhereUniqueWithoutUserInput | AI_PitchUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AI_PitchUpdateManyWithWhereWithoutUserInput | AI_PitchUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AI_PitchScalarWhereInput | AI_PitchScalarWhereInput[]
+  export type AIPitchUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIPitchCreateWithoutUserInput, AIPitchUncheckedCreateWithoutUserInput> | AIPitchCreateWithoutUserInput[] | AIPitchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIPitchCreateOrConnectWithoutUserInput | AIPitchCreateOrConnectWithoutUserInput[]
+    upsert?: AIPitchUpsertWithWhereUniqueWithoutUserInput | AIPitchUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIPitchCreateManyUserInputEnvelope
+    set?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    disconnect?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    delete?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    connect?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    update?: AIPitchUpdateWithWhereUniqueWithoutUserInput | AIPitchUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIPitchUpdateManyWithWhereWithoutUserInput | AIPitchUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIPitchScalarWhereInput | AIPitchScalarWhereInput[]
+  }
+
+  export type LinkClickUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LinkClickCreateWithoutUserInput, LinkClickUncheckedCreateWithoutUserInput> | LinkClickCreateWithoutUserInput[] | LinkClickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LinkClickCreateOrConnectWithoutUserInput | LinkClickCreateOrConnectWithoutUserInput[]
+    upsert?: LinkClickUpsertWithWhereUniqueWithoutUserInput | LinkClickUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LinkClickCreateManyUserInputEnvelope
+    set?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    disconnect?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    delete?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    connect?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    update?: LinkClickUpdateWithWhereUniqueWithoutUserInput | LinkClickUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LinkClickUpdateManyWithWhereWithoutUserInput | LinkClickUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LinkClickScalarWhereInput | LinkClickScalarWhereInput[]
   }
 
   export type LinkUncheckedUpdateManyWithoutUserNestedInput = {
@@ -10069,18 +11445,46 @@ export namespace Prisma {
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
-  export type AI_PitchUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AI_PitchCreateWithoutUserInput, AI_PitchUncheckedCreateWithoutUserInput> | AI_PitchCreateWithoutUserInput[] | AI_PitchUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AI_PitchCreateOrConnectWithoutUserInput | AI_PitchCreateOrConnectWithoutUserInput[]
-    upsert?: AI_PitchUpsertWithWhereUniqueWithoutUserInput | AI_PitchUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AI_PitchCreateManyUserInputEnvelope
-    set?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    disconnect?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    delete?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    connect?: AI_PitchWhereUniqueInput | AI_PitchWhereUniqueInput[]
-    update?: AI_PitchUpdateWithWhereUniqueWithoutUserInput | AI_PitchUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AI_PitchUpdateManyWithWhereWithoutUserInput | AI_PitchUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AI_PitchScalarWhereInput | AI_PitchScalarWhereInput[]
+  export type AIPitchUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIPitchCreateWithoutUserInput, AIPitchUncheckedCreateWithoutUserInput> | AIPitchCreateWithoutUserInput[] | AIPitchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIPitchCreateOrConnectWithoutUserInput | AIPitchCreateOrConnectWithoutUserInput[]
+    upsert?: AIPitchUpsertWithWhereUniqueWithoutUserInput | AIPitchUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIPitchCreateManyUserInputEnvelope
+    set?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    disconnect?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    delete?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    connect?: AIPitchWhereUniqueInput | AIPitchWhereUniqueInput[]
+    update?: AIPitchUpdateWithWhereUniqueWithoutUserInput | AIPitchUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIPitchUpdateManyWithWhereWithoutUserInput | AIPitchUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIPitchScalarWhereInput | AIPitchScalarWhereInput[]
+  }
+
+  export type LinkClickUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LinkClickCreateWithoutUserInput, LinkClickUncheckedCreateWithoutUserInput> | LinkClickCreateWithoutUserInput[] | LinkClickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LinkClickCreateOrConnectWithoutUserInput | LinkClickCreateOrConnectWithoutUserInput[]
+    upsert?: LinkClickUpsertWithWhereUniqueWithoutUserInput | LinkClickUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LinkClickCreateManyUserInputEnvelope
+    set?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    disconnect?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    delete?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    connect?: LinkClickWhereUniqueInput | LinkClickWhereUniqueInput[]
+    update?: LinkClickUpdateWithWhereUniqueWithoutUserInput | LinkClickUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LinkClickUpdateManyWithWhereWithoutUserInput | LinkClickUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LinkClickScalarWhereInput | LinkClickScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutLinkClickInput = {
+    create?: XOR<UserCreateWithoutLinkClickInput, UserUncheckedCreateWithoutLinkClickInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLinkClickInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLinkClickNestedInput = {
+    create?: XOR<UserCreateWithoutLinkClickInput, UserUncheckedCreateWithoutLinkClickInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLinkClickInput
+    upsert?: UserUpsertWithoutLinkClickInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLinkClickInput, UserUpdateWithoutLinkClickInput>, UserUncheckedUpdateWithoutLinkClickInput>
   }
 
   export type UserCreateNestedOneWithoutLinksInput = {
@@ -10498,25 +11902,49 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AI_PitchCreateWithoutUserInput = {
+  export type AIPitchCreateWithoutUserInput = {
     id?: string
+    title: string
     content: string
     createdAt?: Date | string
   }
 
-  export type AI_PitchUncheckedCreateWithoutUserInput = {
+  export type AIPitchUncheckedCreateWithoutUserInput = {
     id?: string
+    title: string
     content: string
     createdAt?: Date | string
   }
 
-  export type AI_PitchCreateOrConnectWithoutUserInput = {
-    where: AI_PitchWhereUniqueInput
-    create: XOR<AI_PitchCreateWithoutUserInput, AI_PitchUncheckedCreateWithoutUserInput>
+  export type AIPitchCreateOrConnectWithoutUserInput = {
+    where: AIPitchWhereUniqueInput
+    create: XOR<AIPitchCreateWithoutUserInput, AIPitchUncheckedCreateWithoutUserInput>
   }
 
-  export type AI_PitchCreateManyUserInputEnvelope = {
-    data: AI_PitchCreateManyUserInput | AI_PitchCreateManyUserInput[]
+  export type AIPitchCreateManyUserInputEnvelope = {
+    data: AIPitchCreateManyUserInput | AIPitchCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinkClickCreateWithoutUserInput = {
+    id?: string
+    link: string
+    createdAt?: Date | string
+  }
+
+  export type LinkClickUncheckedCreateWithoutUserInput = {
+    id?: string
+    link: string
+    createdAt?: Date | string
+  }
+
+  export type LinkClickCreateOrConnectWithoutUserInput = {
+    where: LinkClickWhereUniqueInput
+    create: XOR<LinkClickCreateWithoutUserInput, LinkClickUncheckedCreateWithoutUserInput>
+  }
+
+  export type LinkClickCreateManyUserInputEnvelope = {
+    data: LinkClickCreateManyUserInput | LinkClickCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -10610,30 +12038,169 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
   }
 
-  export type AI_PitchUpsertWithWhereUniqueWithoutUserInput = {
-    where: AI_PitchWhereUniqueInput
-    update: XOR<AI_PitchUpdateWithoutUserInput, AI_PitchUncheckedUpdateWithoutUserInput>
-    create: XOR<AI_PitchCreateWithoutUserInput, AI_PitchUncheckedCreateWithoutUserInput>
+  export type AIPitchUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIPitchWhereUniqueInput
+    update: XOR<AIPitchUpdateWithoutUserInput, AIPitchUncheckedUpdateWithoutUserInput>
+    create: XOR<AIPitchCreateWithoutUserInput, AIPitchUncheckedCreateWithoutUserInput>
   }
 
-  export type AI_PitchUpdateWithWhereUniqueWithoutUserInput = {
-    where: AI_PitchWhereUniqueInput
-    data: XOR<AI_PitchUpdateWithoutUserInput, AI_PitchUncheckedUpdateWithoutUserInput>
+  export type AIPitchUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIPitchWhereUniqueInput
+    data: XOR<AIPitchUpdateWithoutUserInput, AIPitchUncheckedUpdateWithoutUserInput>
   }
 
-  export type AI_PitchUpdateManyWithWhereWithoutUserInput = {
-    where: AI_PitchScalarWhereInput
-    data: XOR<AI_PitchUpdateManyMutationInput, AI_PitchUncheckedUpdateManyWithoutUserInput>
+  export type AIPitchUpdateManyWithWhereWithoutUserInput = {
+    where: AIPitchScalarWhereInput
+    data: XOR<AIPitchUpdateManyMutationInput, AIPitchUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type AI_PitchScalarWhereInput = {
-    AND?: AI_PitchScalarWhereInput | AI_PitchScalarWhereInput[]
-    OR?: AI_PitchScalarWhereInput[]
-    NOT?: AI_PitchScalarWhereInput | AI_PitchScalarWhereInput[]
-    id?: StringFilter<"AI_Pitch"> | string
-    userId?: StringFilter<"AI_Pitch"> | string
-    content?: StringFilter<"AI_Pitch"> | string
-    createdAt?: DateTimeFilter<"AI_Pitch"> | Date | string
+  export type AIPitchScalarWhereInput = {
+    AND?: AIPitchScalarWhereInput | AIPitchScalarWhereInput[]
+    OR?: AIPitchScalarWhereInput[]
+    NOT?: AIPitchScalarWhereInput | AIPitchScalarWhereInput[]
+    id?: StringFilter<"AIPitch"> | string
+    userId?: StringFilter<"AIPitch"> | string
+    title?: StringFilter<"AIPitch"> | string
+    content?: StringFilter<"AIPitch"> | string
+    createdAt?: DateTimeFilter<"AIPitch"> | Date | string
+  }
+
+  export type LinkClickUpsertWithWhereUniqueWithoutUserInput = {
+    where: LinkClickWhereUniqueInput
+    update: XOR<LinkClickUpdateWithoutUserInput, LinkClickUncheckedUpdateWithoutUserInput>
+    create: XOR<LinkClickCreateWithoutUserInput, LinkClickUncheckedCreateWithoutUserInput>
+  }
+
+  export type LinkClickUpdateWithWhereUniqueWithoutUserInput = {
+    where: LinkClickWhereUniqueInput
+    data: XOR<LinkClickUpdateWithoutUserInput, LinkClickUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LinkClickUpdateManyWithWhereWithoutUserInput = {
+    where: LinkClickScalarWhereInput
+    data: XOR<LinkClickUpdateManyMutationInput, LinkClickUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LinkClickScalarWhereInput = {
+    AND?: LinkClickScalarWhereInput | LinkClickScalarWhereInput[]
+    OR?: LinkClickScalarWhereInput[]
+    NOT?: LinkClickScalarWhereInput | LinkClickScalarWhereInput[]
+    id?: StringFilter<"LinkClick"> | string
+    userId?: StringFilter<"LinkClick"> | string
+    link?: StringFilter<"LinkClick"> | string
+    createdAt?: DateTimeFilter<"LinkClick"> | Date | string
+  }
+
+  export type UserCreateWithoutLinkClickInput = {
+    id?: string
+    username: string
+    email: string
+    name?: string | null
+    bio?: string | null
+    avatarUrl?: string | null
+    plan?: $Enums.Plan
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role?: $Enums.Role
+    clerkId: string
+    companyName?: string | null
+    companyOrgNr?: string | null
+    companyVat?: string | null
+    companyAddress?: string | null
+    aiCredits?: number
+    pitchUsage?: number
+    links?: LinkCreateNestedManyWithoutUserInput
+    pdfs?: PDFCreateNestedManyWithoutUserInput
+    invoices?: InvoiceCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLinkClickInput = {
+    id?: string
+    username: string
+    email: string
+    name?: string | null
+    bio?: string | null
+    avatarUrl?: string | null
+    plan?: $Enums.Plan
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role?: $Enums.Role
+    clerkId: string
+    companyName?: string | null
+    companyOrgNr?: string | null
+    companyVat?: string | null
+    companyAddress?: string | null
+    aiCredits?: number
+    pitchUsage?: number
+    links?: LinkUncheckedCreateNestedManyWithoutUserInput
+    pdfs?: PDFUncheckedCreateNestedManyWithoutUserInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLinkClickInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLinkClickInput, UserUncheckedCreateWithoutLinkClickInput>
+  }
+
+  export type UserUpsertWithoutLinkClickInput = {
+    update: XOR<UserUpdateWithoutLinkClickInput, UserUncheckedUpdateWithoutLinkClickInput>
+    create: XOR<UserCreateWithoutLinkClickInput, UserUncheckedCreateWithoutLinkClickInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLinkClickInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLinkClickInput, UserUncheckedUpdateWithoutLinkClickInput>
+  }
+
+  export type UserUpdateWithoutLinkClickInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    clerkId?: StringFieldUpdateOperationsInput | string
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyOrgNr?: NullableStringFieldUpdateOperationsInput | string | null
+    companyVat?: NullableStringFieldUpdateOperationsInput | string | null
+    companyAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    pitchUsage?: IntFieldUpdateOperationsInput | number
+    links?: LinkUpdateManyWithoutUserNestedInput
+    pdfs?: PDFUpdateManyWithoutUserNestedInput
+    invoices?: InvoiceUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLinkClickInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    clerkId?: StringFieldUpdateOperationsInput | string
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyOrgNr?: NullableStringFieldUpdateOperationsInput | string | null
+    companyVat?: NullableStringFieldUpdateOperationsInput | string | null
+    companyAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    pitchUsage?: IntFieldUpdateOperationsInput | number
+    links?: LinkUncheckedUpdateManyWithoutUserNestedInput
+    pdfs?: PDFUncheckedUpdateManyWithoutUserNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLinksInput = {
@@ -10656,7 +12223,8 @@ export namespace Prisma {
     pitchUsage?: number
     pdfs?: PDFCreateNestedManyWithoutUserInput
     invoices?: InvoiceCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLinksInput = {
@@ -10679,7 +12247,8 @@ export namespace Prisma {
     pitchUsage?: number
     pdfs?: PDFUncheckedCreateNestedManyWithoutUserInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchUncheckedCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchUncheckedCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLinksInput = {
@@ -10718,7 +12287,8 @@ export namespace Prisma {
     pitchUsage?: IntFieldUpdateOperationsInput | number
     pdfs?: PDFUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLinksInput = {
@@ -10741,7 +12311,8 @@ export namespace Prisma {
     pitchUsage?: IntFieldUpdateOperationsInput | number
     pdfs?: PDFUncheckedUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUncheckedUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUncheckedUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPdfsInput = {
@@ -10764,7 +12335,8 @@ export namespace Prisma {
     pitchUsage?: number
     links?: LinkCreateNestedManyWithoutUserInput
     invoices?: InvoiceCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPdfsInput = {
@@ -10787,7 +12359,8 @@ export namespace Prisma {
     pitchUsage?: number
     links?: LinkUncheckedCreateNestedManyWithoutUserInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchUncheckedCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchUncheckedCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPdfsInput = {
@@ -10850,7 +12423,8 @@ export namespace Prisma {
     pitchUsage?: IntFieldUpdateOperationsInput | number
     links?: LinkUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPdfsInput = {
@@ -10873,7 +12447,8 @@ export namespace Prisma {
     pitchUsage?: IntFieldUpdateOperationsInput | number
     links?: LinkUncheckedUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUncheckedUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUncheckedUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatMessageUpsertWithWhereUniqueWithoutPdfInput = {
@@ -10979,7 +12554,8 @@ export namespace Prisma {
     pitchUsage?: number
     links?: LinkCreateNestedManyWithoutUserInput
     pdfs?: PDFCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInvoicesInput = {
@@ -11002,7 +12578,8 @@ export namespace Prisma {
     pitchUsage?: number
     links?: LinkUncheckedCreateNestedManyWithoutUserInput
     pdfs?: PDFUncheckedCreateNestedManyWithoutUserInput
-    aiPitches?: AI_PitchUncheckedCreateNestedManyWithoutUserInput
+    aiPitches?: AIPitchUncheckedCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInvoicesInput = {
@@ -11041,7 +12618,8 @@ export namespace Prisma {
     pitchUsage?: IntFieldUpdateOperationsInput | number
     links?: LinkUpdateManyWithoutUserNestedInput
     pdfs?: PDFUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInvoicesInput = {
@@ -11064,7 +12642,8 @@ export namespace Prisma {
     pitchUsage?: IntFieldUpdateOperationsInput | number
     links?: LinkUncheckedUpdateManyWithoutUserNestedInput
     pdfs?: PDFUncheckedUpdateManyWithoutUserNestedInput
-    aiPitches?: AI_PitchUncheckedUpdateManyWithoutUserNestedInput
+    aiPitches?: AIPitchUncheckedUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAiPitchesInput = {
@@ -11088,6 +12667,7 @@ export namespace Prisma {
     links?: LinkCreateNestedManyWithoutUserInput
     pdfs?: PDFCreateNestedManyWithoutUserInput
     invoices?: InvoiceCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiPitchesInput = {
@@ -11111,6 +12691,7 @@ export namespace Prisma {
     links?: LinkUncheckedCreateNestedManyWithoutUserInput
     pdfs?: PDFUncheckedCreateNestedManyWithoutUserInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
+    LinkClick?: LinkClickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiPitchesInput = {
@@ -11150,6 +12731,7 @@ export namespace Prisma {
     links?: LinkUpdateManyWithoutUserNestedInput
     pdfs?: PDFUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiPitchesInput = {
@@ -11173,6 +12755,7 @@ export namespace Prisma {
     links?: LinkUncheckedUpdateManyWithoutUserNestedInput
     pdfs?: PDFUncheckedUpdateManyWithoutUserNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
+    LinkClick?: LinkClickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LinkCreateManyUserInput = {
@@ -11205,9 +12788,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type AI_PitchCreateManyUserInput = {
+  export type AIPitchCreateManyUserInput = {
     id?: string
+    title: string
     content: string
+    createdAt?: Date | string
+  }
+
+  export type LinkClickCreateManyUserInput = {
+    id?: string
+    link: string
     createdAt?: Date | string
   }
 
@@ -11303,21 +12893,42 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AI_PitchUpdateWithoutUserInput = {
+  export type AIPitchUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AI_PitchUncheckedUpdateWithoutUserInput = {
+  export type AIPitchUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AI_PitchUncheckedUpdateManyWithoutUserInput = {
+  export type AIPitchUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinkClickUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinkClickUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinkClickUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
